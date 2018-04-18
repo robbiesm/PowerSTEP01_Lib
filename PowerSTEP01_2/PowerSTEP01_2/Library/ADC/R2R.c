@@ -10,14 +10,13 @@
 void ADCInit(void)
 {
 	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
-	ADMUX |= (1 << REFS0); // Set ADC reference to AVCC
-	ADMUX &= ~(1 << ADLAR); // 10 bit reading (left adjust)
-	ADMUX &= ~(1 << MUX0); // set to pin 0 of port C
-	ADMUX &= ~(1 << MUX1); // set to pin 0 of port C
-	ADMUX &= ~(1 << MUX2); // set to pin 0 of port C
-	ADMUX &= ~(1 << MUX3); // set to pin 0 of port C
-	ADMUX &= ~(1 << MUX4); // set to pin 0 of port C
-	ADCSRB &= ~(1 << MUX5); // set to pin 0 of port C
+	ADMUX |= (1 << REFS0) | (1 << ADLAR); // 10 bit reading (Right adjust)
+	ADMUX &= ~(1 << MUX0); // set to pin 0 of port F
+	ADMUX &= ~(1 << MUX1); // set to pin 0 of port F
+	ADMUX &= ~(1 << MUX2); // set to pin 0 of port F
+	ADMUX &= ~(1 << MUX3); // set to pin 0 of port F
+	ADMUX &= ~(1 << MUX4); // set to pin 0 of port F
+	ADCSRB &= ~(1 << MUX5); // set to pin 0 of port F
 	ADCSRA |= (1 << ADEN);  // Enable ADC
 }
 
@@ -113,10 +112,11 @@ void getSWval(void)
 
 uint16_t getADC(void)
 {
-	uint16_t adcval;
+	uint16_t adcval = 0;
 	ADCSRA |= (1 << ADSC); //start conversion
 	while(ADCSRA & (1<<ADSC));	//wait until conversion is complete
 	adcval = ((ADCH & 0b00000011) << 8);
 	adcval |= ADCL;
+	ADCSRA &= ~(1 << ADSC);
 	return adcval;
 }

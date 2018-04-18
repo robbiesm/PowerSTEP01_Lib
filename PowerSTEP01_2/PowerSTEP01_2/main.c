@@ -13,25 +13,14 @@
 
 int main(void)
 {
-	//SPI_Init();
-	//motorControl_Init();
+	SPI_Init();
+	motorControl_Init();
 	PWMinit();
 	ADCInit();
     /* Replace with your application code */
     while (1) 
     {
-		/*move(0, 1, 12800);
-		move(0, 0, 25600);
-		move(0, 1, 12800);
-		move(0, 0, 6400);
-		move(0, 1, 6400);
-		move(0, 0, 12800);
-		move(0, 0, 64000);
-		run(0, 0, 100);
-		_delay_ms(20000);
-		softStop(0);
-		_delay_ms(1000);*/
-		PWM_DutyCycle = (uint8_t)(getADC() >> 2);
+		//PWM_DutyCycle = (uint8_t)(getADC() >> 2);
     }
 }
 
