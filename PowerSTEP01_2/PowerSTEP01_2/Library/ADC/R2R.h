@@ -24,7 +24,8 @@
 #define SW4 GPIOR03
 
 void ADCInit(void);
-void getADC(void);
+void getSWval(void);
+uint16_t getADC (void);
 
 #endif /* R2R_H_ */
 

@@ -9,7 +9,7 @@
 
 void PWMinit(void)
 {
-	DDRD |= (1<<PORTD6);
+	DDRB |= (1<<PORTB7);
 	TCCR0A |= (1<<COM0A1)|(1<<WGM00)|(1<<WGM01);
 	TCCR0B |= (1<<CS00);
 }

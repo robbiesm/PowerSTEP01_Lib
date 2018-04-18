@@ -1,5 +1,5 @@
-Library/PWM/PowerSTEP_PWM.d Library/PWM/PowerSTEP_PWM.o: \
- ../Library/PWM/PowerSTEP_PWM.c ../Library/PWM/PowerSTEP_PWM.h \
+Library/PWM/PWM.d Library/PWM/PWM.o: ../Library/PWM/PWM.c \
+ ../Library/PWM/PWM.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -17,7 +17,7 @@ Library/PWM/PowerSTEP_PWM.d Library/PWM/PowerSTEP_PWM.o: \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h
 
-../Library/PWM/PowerSTEP_PWM.h:
+../Library/PWM/PWM.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 

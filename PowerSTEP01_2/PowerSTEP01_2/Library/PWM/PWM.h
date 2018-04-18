@@ -18,7 +18,7 @@
 #include <stdlib.h>
 
 
-#define PWM_DutyCycle OCR0 //0 - 255
+#define PWM_DutyCycle OCR0A //0 - 255
 
 
 #endif /* PWM_H_ */

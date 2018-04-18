@@ -1,5 +1,5 @@
-Library/ADC/PowerSTEP_R2R.d Library/ADC/PowerSTEP_R2R.o: \
- ../Library/ADC/PowerSTEP_R2R.c ../Library/ADC/powerSTEP_R2R.h \
+Library/ADC/R2R.d Library/ADC/R2R.o: ../Library/ADC/R2R.c \
+ ../Library/ADC/R2R.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\inttypes.h \
@@ -17,7 +17,7 @@ Library/ADC/PowerSTEP_R2R.d Library/ADC/PowerSTEP_R2R.o: \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h
 
-../Library/ADC/powerSTEP_R2R.h:
+../Library/ADC/R2R.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 

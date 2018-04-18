@@ -127,10 +127,10 @@
     <Folder Include="Library\SPI" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Library\ADC\PowerSTEP_R2R.c">
+    <Compile Include="Library\ADC\R2R.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Library\ADC\PowerSTEP_R2R.h">
+    <Compile Include="Library\ADC\R2R.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Library\PowerSTEP01\powerSTEP01.c">
@@ -142,10 +142,10 @@
     <Compile Include="Library\PowerSTEP01\powerSTEP01_Constants.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Library\PWM\PowerSTEP_PWM.c">
+    <Compile Include="Library\PWM\PWM.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Library\PWM\PowerSTEP_PWM.h">
+    <Compile Include="Library\PWM\PWM.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Library\SPI\SPI.h">

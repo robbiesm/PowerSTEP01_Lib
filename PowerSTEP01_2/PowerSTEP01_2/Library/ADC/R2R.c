@@ -21,7 +21,7 @@ void ADCInit(void)
 	ADCSRA |= (1 << ADEN);  // Enable ADC
 }
 
-void getADC(void)
+void getSWval(void)
 {
 	uint16_t adcval;
 	ADCSRA |= (1 << ADSC); //start conversion
@@ -109,4 +109,14 @@ void getADC(void)
 		SWR &= 0b11110000;
 		SWR |= 0b00001111;
 	}
+}
+
+uint16_t getADC(void)
+{
+	uint16_t adcval;
+	ADCSRA |= (1 << ADSC); //start conversion
+	while(ADCSRA & (1<<ADSC));	//wait until conversion is complete
+	adcval = ((ADCH & 0b00000011) << 8);
+	adcval |= ADCL;
+	return adcval;
 }

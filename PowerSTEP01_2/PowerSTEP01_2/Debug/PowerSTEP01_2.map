@@ -46,10 +46,11 @@ Discarded input sections
 
  .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
  .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
- .text          0x00000000        0x0 Library/ADC/PowerSTEP_R2R.o
- .data          0x00000000        0x0 Library/ADC/PowerSTEP_R2R.o
- .bss           0x00000000        0x0 Library/ADC/PowerSTEP_R2R.o
- .text.ADCInit  0x00000000       0x4a Library/ADC/PowerSTEP_R2R.o
+ .text          0x00000000        0x0 Library/ADC/R2R.o
+ .data          0x00000000        0x0 Library/ADC/R2R.o
+ .bss           0x00000000        0x0 Library/ADC/R2R.o
+ .text.getSWval
+                0x00000000      0x186 Library/ADC/R2R.o
  .text          0x00000000        0x0 Library/PowerSTEP01/powerSTEP01.o
  .data          0x00000000        0x0 Library/PowerSTEP01/powerSTEP01.o
  .bss           0x00000000        0x0 Library/PowerSTEP01/powerSTEP01.o
@@ -149,19 +150,9 @@ Discarded input sections
  .comment       0x00000000       0x31 Library/PowerSTEP01/powerSTEP01.o
  .debug_frame   0x00000000      0x54c Library/PowerSTEP01/powerSTEP01.o
  COMMON         0x00000000       0x10 Library/PowerSTEP01/powerSTEP01.o
- .text          0x00000000        0x0 Library/PWM/PowerSTEP_PWM.o
- .data          0x00000000        0x0 Library/PWM/PowerSTEP_PWM.o
- .bss           0x00000000        0x0 Library/PWM/PowerSTEP_PWM.o
- .text.PWMinit  0x00000000       0x10 Library/PWM/PowerSTEP_PWM.o
- .debug_info    0x00000000       0x83 Library/PWM/PowerSTEP_PWM.o
- .debug_abbrev  0x00000000       0x51 Library/PWM/PowerSTEP_PWM.o
- .debug_aranges
-                0x00000000       0x20 Library/PWM/PowerSTEP_PWM.o
- .debug_ranges  0x00000000       0x10 Library/PWM/PowerSTEP_PWM.o
- .debug_line    0x00000000       0xc0 Library/PWM/PowerSTEP_PWM.o
- .debug_str     0x00000000      0x191 Library/PWM/PowerSTEP_PWM.o
- .comment       0x00000000       0x31 Library/PWM/PowerSTEP_PWM.o
- .debug_frame   0x00000000       0x24 Library/PWM/PowerSTEP_PWM.o
+ .text          0x00000000        0x0 Library/PWM/PWM.o
+ .data          0x00000000        0x0 Library/PWM/PWM.o
+ .bss           0x00000000        0x0 Library/PWM/PWM.o
  .text          0x00000000        0x0 Library/SPI/SPI_Functions.o
  .data          0x00000000        0x0 Library/SPI/SPI_Functions.o
  .bss           0x00000000        0x0 Library/SPI/SPI_Functions.o
@@ -332,9 +323,9 @@ Linker script and memory map
 
 Address of section .data set to 0x800100
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
-LOAD Library/ADC/PowerSTEP_R2R.o
+LOAD Library/ADC/R2R.o
 LOAD Library/PowerSTEP01/powerSTEP01.o
-LOAD Library/PWM/PowerSTEP_PWM.o
+LOAD Library/PWM/PWM.o
 LOAD Library/SPI/SPI_Functions.o
 LOAD main.o
 START GROUP
@@ -444,7 +435,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x264
+.text           0x00000000      0x16e
  *(.vectors)
  .vectors       0x00000000       0xac C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
                 0x00000000                __vector_default
@@ -546,15 +537,19 @@ END GROUP
                 0x000000d0                __vector_42
                 0x000000d4                . = ALIGN (0x2)
  *(.text.*)
- .text.getADC   0x000000d4      0x186 Library/ADC/PowerSTEP_R2R.o
-                0x000000d4                getADC
- .text.main     0x0000025a        0x6 main.o
-                0x0000025a                main
-                0x00000260                . = ALIGN (0x2)
+ .text.ADCInit  0x000000d4       0x4a Library/ADC/R2R.o
+                0x000000d4                ADCInit
+ .text.getADC   0x0000011e       0x24 Library/ADC/R2R.o
+                0x0000011e                getADC
+ .text.PWMinit  0x00000142       0x10 Library/PWM/PWM.o
+                0x00000142                PWMinit
+ .text.main     0x00000152       0x18 main.o
+                0x00000152                main
+                0x0000016a                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000260        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000260                _exit
-                0x00000260                exit
+ .fini9         0x0000016a        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x0000016a                _exit
+                0x0000016a                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -573,11 +568,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000260        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x0000016a        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000264                _etext = .
+                0x0000016e                _etext = .
 
-.data           0x00800100        0x0 load address 0x00000264
+.data           0x00800100        0x0 load address 0x0000016e
                 [!provide]                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -595,8 +590,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 0x00800100                PROVIDE (__bss_end, .)
-                0x00000264                __data_load_start = LOADADDR (.data)
-                0x00000264                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000016e                __data_load_start = LOADADDR (.data)
+                0x0000016e                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800100        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -644,8 +639,9 @@ END GROUP
 
 .comment        0x00000000       0x30
  *(.comment)
- .comment       0x00000000       0x30 Library/ADC/PowerSTEP_R2R.o
+ .comment       0x00000000       0x30 Library/ADC/R2R.o
                                  0x31 (size before relaxing)
+ .comment       0x00000030       0x31 Library/PWM/PWM.o
  .comment       0x00000030       0x31 main.o
 
 .note.gnu.avr.deviceinfo
@@ -668,50 +664,58 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0x48
+.debug_aranges  0x00000000       0x70
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x28 Library/ADC/PowerSTEP_R2R.o
+                0x00000000       0x30 Library/ADC/R2R.o
  .debug_aranges
-                0x00000028       0x20 main.o
+                0x00000030       0x20 Library/PWM/PWM.o
+ .debug_aranges
+                0x00000050       0x20 main.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xb40
+.debug_info     0x00000000      0xc3b
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x9f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
- .debug_info    0x000009f4       0xb4 Library/ADC/PowerSTEP_R2R.o
- .debug_info    0x00000aa8       0x98 main.o
+ .debug_info    0x000009f4       0xe2 Library/ADC/R2R.o
+ .debug_info    0x00000ad6       0x83 Library/PWM/PWM.o
+ .debug_info    0x00000b59       0xe2 main.o
 
-.debug_abbrev   0x00000000      0xa4a
+.debug_abbrev   0x00000000      0xadc
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x96a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
- .debug_abbrev  0x0000096a       0x78 Library/ADC/PowerSTEP_R2R.o
- .debug_abbrev  0x000009e2       0x68 main.o
+ .debug_abbrev  0x0000096a       0x94 Library/ADC/R2R.o
+ .debug_abbrev  0x000009fe       0x51 Library/PWM/PWM.o
+ .debug_abbrev  0x00000a4f       0x8d main.o
 
-.debug_line     0x00000000      0x436
+.debug_line     0x00000000      0x579
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x199 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
- .debug_line    0x00000199      0x236 Library/ADC/PowerSTEP_R2R.o
- .debug_line    0x000003cf       0x67 main.o
+ .debug_line    0x00000199      0x25f Library/ADC/R2R.o
+ .debug_line    0x000003f8       0xb6 Library/PWM/PWM.o
+ .debug_line    0x000004ae       0xcb main.o
 
-.debug_frame    0x00000000       0x58
+.debug_frame    0x00000000       0x8c
  *(.debug_frame)
- .debug_frame   0x00000000       0x34 Library/ADC/PowerSTEP_R2R.o
- .debug_frame   0x00000034       0x24 main.o
+ .debug_frame   0x00000000       0x44 Library/ADC/R2R.o
+ .debug_frame   0x00000044       0x24 Library/PWM/PWM.o
+ .debug_frame   0x00000068       0x24 main.o
 
-.debug_str      0x00000000      0x4f6
+.debug_str      0x00000000      0x516
  *(.debug_str)
  .debug_str     0x00000000      0x371 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
- .debug_str     0x00000371      0x174 Library/ADC/PowerSTEP_R2R.o
-                                0x1a8 (size before relaxing)
- .debug_str     0x000004e5       0x11 main.o
-                                0x17a (size before relaxing)
+ .debug_str     0x00000371      0x177 Library/ADC/R2R.o
+                                0x1ab (size before relaxing)
+ .debug_str     0x000004e8       0x1d Library/PWM/PWM.o
+                                0x18b (size before relaxing)
+ .debug_str     0x00000505       0x11 main.o
+                                0x196 (size before relaxing)
 
-.debug_loc      0x00000000       0x18
+.debug_loc      0x00000000       0x43
  *(.debug_loc)
- .debug_loc     0x00000000       0x18 Library/ADC/PowerSTEP_R2R.o
+ .debug_loc     0x00000000       0x43 Library/ADC/R2R.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -731,10 +735,11 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0x28
+.debug_ranges   0x00000000       0x40
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x18 Library/ADC/PowerSTEP_R2R.o
- .debug_ranges  0x00000018       0x10 main.o
+ .debug_ranges  0x00000000       0x20 Library/ADC/R2R.o
+ .debug_ranges  0x00000020       0x10 Library/PWM/PWM.o
+ .debug_ranges  0x00000030       0x10 main.o
 
 .debug_macro
  *(.debug_macro)

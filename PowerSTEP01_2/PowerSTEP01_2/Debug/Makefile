@@ -42,9 +42,9 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../Library/ADC/PowerSTEP_R2R.c \
+../Library/ADC/R2R.c \
 ../Library/PowerSTEP01/powerSTEP01.c \
-../Library/PWM/PowerSTEP_PWM.c \
+../Library/PWM/PWM.c \
 ../Library/SPI/SPI_Functions.c \
 ../main.c
 
@@ -56,30 +56,30 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-Library/ADC/PowerSTEP_R2R.o \
+Library/ADC/R2R.o \
 Library/PowerSTEP01/powerSTEP01.o \
-Library/PWM/PowerSTEP_PWM.o \
+Library/PWM/PWM.o \
 Library/SPI/SPI_Functions.o \
 main.o
 
 OBJS_AS_ARGS +=  \
-Library/ADC/PowerSTEP_R2R.o \
+Library/ADC/R2R.o \
 Library/PowerSTEP01/powerSTEP01.o \
-Library/PWM/PowerSTEP_PWM.o \
+Library/PWM/PWM.o \
 Library/SPI/SPI_Functions.o \
 main.o
 
 C_DEPS +=  \
-Library/ADC/PowerSTEP_R2R.d \
+Library/ADC/R2R.d \
 Library/PowerSTEP01/powerSTEP01.d \
-Library/PWM/PowerSTEP_PWM.d \
+Library/PWM/PWM.d \
 Library/SPI/SPI_Functions.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
-Library/ADC/PowerSTEP_R2R.d \
+Library/ADC/R2R.d \
 Library/PowerSTEP01/powerSTEP01.d \
-Library/PWM/PowerSTEP_PWM.d \
+Library/PWM/PWM.d \
 Library/SPI/SPI_Functions.d \
 main.d
 

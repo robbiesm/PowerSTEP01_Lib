@@ -15,7 +15,8 @@ int main(void)
 {
 	//SPI_Init();
 	//motorControl_Init();
-
+	PWMinit();
+	ADCInit();
     /* Replace with your application code */
     while (1) 
     {
@@ -30,7 +31,7 @@ int main(void)
 		_delay_ms(20000);
 		softStop(0);
 		_delay_ms(1000);*/
-		getADC();
+		PWM_DutyCycle = (uint8_t)(getADC() >> 2);
     }
 }
 
