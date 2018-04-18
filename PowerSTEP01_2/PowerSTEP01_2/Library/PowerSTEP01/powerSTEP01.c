@@ -30,22 +30,26 @@ uint8_t SPIXfer(uint8_t data)
 
 uint8_t SPIXferMotors(uint8_t motor, uint8_t data)
 {
-	uint8_t temp;
+	uint8_t temp[3];
+	uint8_t retval;
 	uint8_t j;
+	if (motor < 1) motor = 1;
+	if (motor > 3) motor = 3;
 	CSM_Low;
 		for(j=0; j<3; j++)
 		{
 			if(motor == (3-j))
 			{
-				SPIXfer(data);
+				temp[j] = SPIXfer(data);
 			}
 			else
 			{
-				SPIXfer(0x00);
+				temp[j] = SPIXfer(0x00);
 			}
 		}
 	CSM_High;
-	return temp;
+	retval = temp[2-(motor-1)];
+	return retval;
 }
 
 static long SPIXferParam(uint8_t motor, unsigned long data, uint8_t bitLen)
