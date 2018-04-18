@@ -19,6 +19,6 @@
 
 
 #define PWM_DutyCycle OCR0A //0 - 255
-
+void PWMinit(void);
 
 #endif /* PWM_H_ */

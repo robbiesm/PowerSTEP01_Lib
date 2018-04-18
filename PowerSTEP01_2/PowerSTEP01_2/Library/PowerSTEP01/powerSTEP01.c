@@ -8,6 +8,7 @@
 #include "powerSTEP01.h"
 
 static volatile uint8_t numberOfDevices;
+
 struct motorParam{
 	uint8_t RunKval;
 	uint8_t HoldKval;
@@ -18,14 +19,6 @@ struct motorParam{
 	unsigned long Dec;
 }motorParam;
 
-#if defined (__AVR_ATmega32U4__)
-ISR()
-{
-	flagHandler();
-	return;
-}
-
-#endif
 uint8_t SPIXfer(uint8_t data)
 {
 	uint8_t temp;
@@ -400,8 +393,8 @@ void powerSTEP01_GPIO_Init(void)
 #endif
 
 	#ifdef reset
-		DDRB |= (1<<DD_reset);
-		PORTB &= ~(1<<reset);
+		DDRE |= (1<<DD_reset);
+		PORTE &= ~(1<<reset);
 	#endif
 }
 

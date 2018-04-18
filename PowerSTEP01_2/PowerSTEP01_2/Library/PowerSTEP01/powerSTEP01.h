@@ -61,6 +61,7 @@ void setSwitchMode(uint8_t motor, int switchMode);
 void setOscMode(uint8_t motor, int oscillatorMode);
 void setMaxSpeed(uint8_t motor, unsigned long stepsPerSecond);
 void setAcc(uint8_t motor, unsigned long stepsPerSecondPerSecond);
+void setDec(uint8_t motor, unsigned long stepsPerSecondPerSecond);
 void setSTALL_TH(uint8_t motor, uint8_t STALL);
 
 uint8_t getRunKval(uint8_t motor);
