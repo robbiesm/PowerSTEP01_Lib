@@ -5,7 +5,7 @@
  *  Author: vincent
  */ 
 
-#include "PowerSTEP_PWM.h"
+#include "PWM.h"
 
 void PWMinit(void)
 {

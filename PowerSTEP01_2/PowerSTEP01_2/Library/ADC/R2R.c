@@ -5,7 +5,7 @@
  *  Author: vincent
  */ 
 
-#include "powerSTEP_R2R.h"
+#include "R2R.h"
 
 void ADCInit(void)
 {

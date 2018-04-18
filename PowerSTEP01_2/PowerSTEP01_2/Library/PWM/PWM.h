@@ -6,8 +6,8 @@
  */ 
 
 
-#ifndef POWERSTEP_PWM_H_
-#define POWERSTEP_PWM_H_
+#ifndef PWM_H_
+#define PWM_H_
 
 #ifndef F_CPU
 #define F_CPU 16000000UL
@@ -21,4 +21,4 @@
 #define PWM_DutyCycle OCR0 //0 - 255
 
 
-#endif /* POWERSTEP_PWM_H_ */
+#endif /* PWM_H_ */

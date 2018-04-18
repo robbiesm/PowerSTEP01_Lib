@@ -6,8 +6,8 @@
  */ 
 
 
-#ifndef POWERSTEP_R2R_H_
-#define POWERSTEP_R2R_H_
+#ifndef R2R_H_
+#define R2R_H_
 
 #ifndef F_CPU
 #define F_CPU 16000000UL
@@ -26,5 +26,5 @@
 void ADCInit(void);
 void getADC(void);
 
-#endif /* POWERSTEP_R2R_H_ */
+#endif /* R2R_H_ */
 

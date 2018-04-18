@@ -7,8 +7,8 @@
 
 #include <avr/io.h>
 #include "Library/SPI/SPI.h"
-#include "Library/ADC/PowerSTEP_R2R.h"
-#include "Library/PWM/PowerSTEP_PWM.h"
+#include "Library/ADC/R2R.h"
+#include "Library/PWM/PWM.h"
 #include "Library/powerSTEP01/powerSTEP01.h"
 
 int main(void)
