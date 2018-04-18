@@ -22,9 +22,7 @@ struct motorParam{
 uint8_t SPIXfer(uint8_t data)
 {
 	uint8_t temp;
-	CSM_Low;
 	temp = transfer(data);
-	CSM_High;
 	return temp;
 }
 
@@ -89,9 +87,11 @@ void motorControl_Init(void)
 	releaseReset();
 	#endif
 	_delay_ms(1);
+	CSM_Low;
 	SPIXfer(0x00);
 	SPIXfer(0x00);
 	SPIXfer(0x00);
+	CSM_High;
 	//setDeviceParam();
 	
 	for(i=1; i<4; i++)
@@ -348,7 +348,7 @@ uint8_t getStatus(uint8_t motor)
 {
 	uint8_t temp;
 	uint8_t* tempPointer = (uint8_t*)&temp;
-	SPIXfer(GET_STATUS);
+	SPIXferMotors(motor, GET_STATUS);
 	tempPointer[1] = SPIXferMotors(motor, 0x00);
 	tempPointer[0] = SPIXferMotors(motor, 0x00);
 	return temp;

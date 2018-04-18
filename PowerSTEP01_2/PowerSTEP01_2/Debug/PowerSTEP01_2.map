@@ -434,80 +434,80 @@ END GROUP
  *(.text.*)
  .text.ADCInit  0x0000010a       0x44 Library/ADC/R2R.o
                 0x0000010a                ADCInit
- .text.SPIXfer  0x0000014e        0xa Library/PowerSTEP01/powerSTEP01.o
+ .text.SPIXfer  0x0000014e        0x6 Library/PowerSTEP01/powerSTEP01.o
                 0x0000014e                SPIXfer
  .text.SPIXferMotors
-                0x00000158       0x9c Library/PowerSTEP01/powerSTEP01.o
-                0x00000158                SPIXferMotors
+                0x00000154       0x9c Library/PowerSTEP01/powerSTEP01.o
+                0x00000154                SPIXferMotors
  .text.SPIXferParam
-                0x000001f4       0xd8 Library/PowerSTEP01/powerSTEP01.o
+                0x000001f0       0xd8 Library/PowerSTEP01/powerSTEP01.o
  .text.getStatus
-                0x000002cc       0x1e Library/PowerSTEP01/powerSTEP01.o
-                0x000002cc                getStatus
+                0x000002c8       0x1e Library/PowerSTEP01/powerSTEP01.o
+                0x000002c8                getStatus
  .text.powerSTEP01_GPIO_Init
-                0x000002ea       0x14 Library/PowerSTEP01/powerSTEP01.o
-                0x000002ea                powerSTEP01_GPIO_Init
+                0x000002e6       0x14 Library/PowerSTEP01/powerSTEP01.o
+                0x000002e6                powerSTEP01_GPIO_Init
  .text.releaseReset
-                0x000002fe        0x4 Library/PowerSTEP01/powerSTEP01.o
-                0x000002fe                releaseReset
+                0x000002fa        0x4 Library/PowerSTEP01/powerSTEP01.o
+                0x000002fa                releaseReset
  .text.paramHandler
-                0x00000302      0x130 Library/PowerSTEP01/powerSTEP01.o
-                0x00000302                paramHandler
+                0x000002fe      0x130 Library/PowerSTEP01/powerSTEP01.o
+                0x000002fe                paramHandler
  .text.setParam
-                0x00000432       0x3c Library/PowerSTEP01/powerSTEP01.o
-                0x00000432                setParam
+                0x0000042e       0x3c Library/PowerSTEP01/powerSTEP01.o
+                0x0000042e                setParam
  .text.setRunKval
-                0x0000046e       0x1a Library/PowerSTEP01/powerSTEP01.o
-                0x0000046e                setRunKval
+                0x0000046a       0x1a Library/PowerSTEP01/powerSTEP01.o
+                0x0000046a                setRunKval
  .text.setHoldKval
-                0x00000488       0x1a Library/PowerSTEP01/powerSTEP01.o
-                0x00000488                setHoldKval
+                0x00000484       0x1a Library/PowerSTEP01/powerSTEP01.o
+                0x00000484                setHoldKval
  .text.setAccKval
-                0x000004a2       0x1a Library/PowerSTEP01/powerSTEP01.o
-                0x000004a2                setAccKval
+                0x0000049e       0x1a Library/PowerSTEP01/powerSTEP01.o
+                0x0000049e                setAccKval
  .text.setDecKval
-                0x000004bc       0x1a Library/PowerSTEP01/powerSTEP01.o
-                0x000004bc                setDecKval
+                0x000004b8       0x1a Library/PowerSTEP01/powerSTEP01.o
+                0x000004b8                setDecKval
  .text.setOCD_TH
-                0x000004d6       0x1a Library/PowerSTEP01/powerSTEP01.o
-                0x000004d6                setOCD_TH
+                0x000004d2       0x1a Library/PowerSTEP01/powerSTEP01.o
+                0x000004d2                setOCD_TH
  .text.setSTALL_TH
-                0x000004f0       0x1a Library/PowerSTEP01/powerSTEP01.o
-                0x000004f0                setSTALL_TH
- .text.setAcc   0x0000050a       0x4a Library/PowerSTEP01/powerSTEP01.o
-                0x0000050a                setAcc
- .text.setDec   0x00000554       0x4a Library/PowerSTEP01/powerSTEP01.o
-                0x00000554                setDec
+                0x000004ec       0x1a Library/PowerSTEP01/powerSTEP01.o
+                0x000004ec                setSTALL_TH
+ .text.setAcc   0x00000506       0x4a Library/PowerSTEP01/powerSTEP01.o
+                0x00000506                setAcc
+ .text.setDec   0x00000550       0x4a Library/PowerSTEP01/powerSTEP01.o
+                0x00000550                setDec
  .text.getParam
-                0x0000059e       0x22 Library/PowerSTEP01/powerSTEP01.o
-                0x0000059e                getParam
+                0x0000059a       0x22 Library/PowerSTEP01/powerSTEP01.o
+                0x0000059a                getParam
  .text.setOscMode
-                0x000005c0       0x44 Library/PowerSTEP01/powerSTEP01.o
-                0x000005c0                setOscMode
+                0x000005bc       0x44 Library/PowerSTEP01/powerSTEP01.o
+                0x000005bc                setOscMode
  .text.setSwitchMode
-                0x00000604       0x44 Library/PowerSTEP01/powerSTEP01.o
-                0x00000604                setSwitchMode
+                0x00000600       0x44 Library/PowerSTEP01/powerSTEP01.o
+                0x00000600                setSwitchMode
  .text.setVoltageComp
-                0x00000648       0x44 Library/PowerSTEP01/powerSTEP01.o
-                0x00000648                setVoltageComp
+                0x00000644       0x44 Library/PowerSTEP01/powerSTEP01.o
+                0x00000644                setVoltageComp
  .text.setPWMFreq
-                0x0000068c       0x2a Library/PowerSTEP01/powerSTEP01.o
-                0x0000068c                setPWMFreq
+                0x00000688       0x2a Library/PowerSTEP01/powerSTEP01.o
+                0x00000688                setPWMFreq
  .text.setOCShutdown
-                0x000006b6       0x30 Library/PowerSTEP01/powerSTEP01.o
-                0x000006b6                setOCShutdown
+                0x000006b2       0x30 Library/PowerSTEP01/powerSTEP01.o
+                0x000006b2                setOCShutdown
  .text.setSlewRate
-                0x000006e6       0x32 Library/PowerSTEP01/powerSTEP01.o
-                0x000006e6                setSlewRate
+                0x000006e2       0x32 Library/PowerSTEP01/powerSTEP01.o
+                0x000006e2                setSlewRate
  .text.maxSpdCalc
-                0x00000718       0x2e Library/PowerSTEP01/powerSTEP01.o
-                0x00000718                maxSpdCalc
+                0x00000714       0x2e Library/PowerSTEP01/powerSTEP01.o
+                0x00000714                maxSpdCalc
  .text.setMaxSpeed
-                0x00000746       0x26 Library/PowerSTEP01/powerSTEP01.o
-                0x00000746                setMaxSpeed
+                0x00000742       0x26 Library/PowerSTEP01/powerSTEP01.o
+                0x00000742                setMaxSpeed
  .text.motorControl_Init
-                0x0000076c      0x150 Library/PowerSTEP01/powerSTEP01.o
-                0x0000076c                motorControl_Init
+                0x00000768      0x154 Library/PowerSTEP01/powerSTEP01.o
+                0x00000768                motorControl_Init
  .text.PWMinit  0x000008bc       0x10 Library/PWM/PWM.o
                 0x000008bc                PWMinit
  .text.SPI_Init
@@ -709,14 +709,14 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x27ff
+.debug_info     0x00000000     0x2805
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x9f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
  .debug_info    0x000009f4       0xe2 Library/ADC/R2R.o
- .debug_info    0x00000ad6     0x19fb Library/PowerSTEP01/powerSTEP01.o
- .debug_info    0x000024d1       0x83 Library/PWM/PWM.o
- .debug_info    0x00002554      0x1d1 Library/SPI/SPI_Functions.o
- .debug_info    0x00002725       0xda main.o
+ .debug_info    0x00000ad6     0x1a01 Library/PowerSTEP01/powerSTEP01.o
+ .debug_info    0x000024d7       0x83 Library/PWM/PWM.o
+ .debug_info    0x0000255a      0x1d1 Library/SPI/SPI_Functions.o
+ .debug_info    0x0000272b       0xda main.o
 
 .debug_abbrev   0x00000000      0xf7b
  *(.debug_abbrev)
@@ -744,18 +744,18 @@ END GROUP
  .debug_frame   0x000005c4       0x84 Library/SPI/SPI_Functions.o
  .debug_frame   0x00000648       0x24 main.o
 
-.debug_str      0x00000000      0xa30
+.debug_str      0x00000000      0x98c
  *(.debug_str)
  .debug_str     0x00000000      0x371 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega32u4/avr5/crtatmega32u4.o
  .debug_str     0x00000371      0x175 Library/ADC/R2R.o
                                 0x1a9 (size before relaxing)
- .debug_str     0x000004e6      0x44c Library/PowerSTEP01/powerSTEP01.o
-                                0x5a2 (size before relaxing)
- .debug_str     0x00000932       0x1d Library/PWM/PWM.o
+ .debug_str     0x000004e6      0x3f8 Library/PowerSTEP01/powerSTEP01.o
+                                0x5a0 (size before relaxing)
+ .debug_str     0x000008de       0x1d Library/PWM/PWM.o
                                 0x189 (size before relaxing)
- .debug_str     0x0000094f       0xd0 Library/SPI/SPI_Functions.o
-                                0x201 (size before relaxing)
- .debug_str     0x00000a1f       0x11 main.o
+ .debug_str     0x000008fb       0x80 Library/SPI/SPI_Functions.o
+                                0x203 (size before relaxing)
+ .debug_str     0x0000097b       0x11 main.o
                                 0x1a0 (size before relaxing)
 
 .debug_loc      0x00000000     0x287b

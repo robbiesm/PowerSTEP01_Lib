@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000240  00000000  00000000  00000cf8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000027ff  00000000  00000000  00000f38  2**0
+  6 .debug_info   00002805  00000000  00000000  00000f38  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000f7b  00000000  00000000  00003737  2**0
+  7 .debug_abbrev 00000f7b  00000000  00000000  0000373d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000011b8  00000000  00000000  000046b2  2**0
+  8 .debug_line   000011b8  00000000  00000000  000046b8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000066c  00000000  00000000  0000586c  2**2
+  9 .debug_frame  0000066c  00000000  00000000  00005870  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000a30  00000000  00000000  00005ed8  2**0
+ 10 .debug_str    0000098c  00000000  00000000  00005edc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000287b  00000000  00000000  00006908  2**0
+ 11 .debug_loc    0000287b  00000000  00000000  00006868  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000001f0  00000000  00000000  00009183  2**0
+ 12 .debug_ranges 000001f0  00000000  00000000  000090e3  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -76,33 +76,33 @@ Disassembly of section .text:
   a0:	0c 94 83 00 	jmp	0x106	; 0x106 <__bad_interrupt>
   a4:	0c 94 83 00 	jmp	0x106	; 0x106 <__bad_interrupt>
   a8:	0c 94 83 00 	jmp	0x106	; 0x106 <__bad_interrupt>
-  ac:	92 01       	movw	r18, r4
-  ae:	96 01       	movw	r18, r12
-  b0:	9a 01       	movw	r18, r20
-  b2:	9e 01       	movw	r18, r28
-  b4:	a5 01       	movw	r20, r10
-  b6:	a9 01       	movw	r20, r18
-  b8:	ad 01       	movw	r20, r26
-  ba:	b1 01       	movw	r22, r2
-  bc:	b9 01       	movw	r22, r18
-  be:	bd 01       	movw	r22, r26
-  c0:	c1 01       	movw	r24, r2
-  c2:	c5 01       	movw	r24, r10
-  c4:	c9 01       	movw	r24, r18
-  c6:	cd 01       	movw	r24, r26
-  c8:	d1 01       	movw	r26, r2
-  ca:	d5 01       	movw	r26, r10
-  cc:	d9 01       	movw	r26, r18
-  ce:	e1 01       	movw	r28, r2
-  d0:	e5 01       	movw	r28, r10
-  d2:	ed 01       	movw	r28, r26
-  d4:	b5 01       	movw	r22, r10
-  d6:	f5 01       	movw	r30, r10
-  d8:	f9 01       	movw	r30, r18
-  da:	fd 01       	movw	r30, r26
-  dc:	01 02       	muls	r16, r17
-  de:	05 02       	muls	r16, r21
-  e0:	09 02       	muls	r16, r25
+  ac:	90 01       	movw	r18, r0
+  ae:	94 01       	movw	r18, r8
+  b0:	98 01       	movw	r18, r16
+  b2:	9c 01       	movw	r18, r24
+  b4:	a3 01       	movw	r20, r6
+  b6:	a7 01       	movw	r20, r14
+  b8:	ab 01       	movw	r20, r22
+  ba:	af 01       	movw	r20, r30
+  bc:	b7 01       	movw	r22, r14
+  be:	bb 01       	movw	r22, r22
+  c0:	bf 01       	movw	r22, r30
+  c2:	c3 01       	movw	r24, r6
+  c4:	c7 01       	movw	r24, r14
+  c6:	cb 01       	movw	r24, r22
+  c8:	cf 01       	movw	r24, r30
+  ca:	d3 01       	movw	r26, r6
+  cc:	d7 01       	movw	r26, r14
+  ce:	df 01       	movw	r26, r30
+  d0:	e3 01       	movw	r28, r6
+  d2:	eb 01       	movw	r28, r22
+  d4:	b3 01       	movw	r22, r6
+  d6:	f3 01       	movw	r30, r6
+  d8:	f7 01       	movw	r30, r14
+  da:	fb 01       	movw	r30, r22
+  dc:	ff 01       	movw	r30, r30
+  de:	03 02       	muls	r16, r19
+  e0:	07 02       	muls	r16, r23
 
 000000e2 <__ctors_end>:
   e2:	11 24       	eor	r1, r1
@@ -132,36 +132,50 @@ Disassembly of section .text:
  106:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 0000010a <ADCInit>:
+
+#include "R2R.h"
+
+void ADCInit(void)
+{
+	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
  10a:	aa e7       	ldi	r26, 0x7A	; 122
  10c:	b0 e0       	ldi	r27, 0x00	; 0
  10e:	8c 91       	ld	r24, X
  110:	87 60       	ori	r24, 0x07	; 7
  112:	8c 93       	st	X, r24
+	ADMUX |= (1 << REFS0) | (1 << ADLAR); // 10 bit reading (Right adjust)
  114:	ec e7       	ldi	r30, 0x7C	; 124
  116:	f0 e0       	ldi	r31, 0x00	; 0
  118:	80 81       	ld	r24, Z
  11a:	80 66       	ori	r24, 0x60	; 96
  11c:	80 83       	st	Z, r24
+	ADMUX &= ~(1 << MUX0); // set to pin 0 of port F
  11e:	80 81       	ld	r24, Z
  120:	8e 7f       	andi	r24, 0xFE	; 254
  122:	80 83       	st	Z, r24
+	ADMUX &= ~(1 << MUX1); // set to pin 0 of port F
  124:	80 81       	ld	r24, Z
  126:	8d 7f       	andi	r24, 0xFD	; 253
  128:	80 83       	st	Z, r24
+	ADMUX &= ~(1 << MUX2); // set to pin 0 of port F
  12a:	80 81       	ld	r24, Z
  12c:	8b 7f       	andi	r24, 0xFB	; 251
  12e:	80 83       	st	Z, r24
+	ADMUX &= ~(1 << MUX3); // set to pin 0 of port F
  130:	80 81       	ld	r24, Z
  132:	87 7f       	andi	r24, 0xF7	; 247
  134:	80 83       	st	Z, r24
+	ADMUX &= ~(1 << MUX4); // set to pin 0 of port F
  136:	80 81       	ld	r24, Z
  138:	8f 7e       	andi	r24, 0xEF	; 239
  13a:	80 83       	st	Z, r24
+	ADCSRB &= ~(1 << MUX5); // set to pin 0 of port F
  13c:	eb e7       	ldi	r30, 0x7B	; 123
  13e:	f0 e0       	ldi	r31, 0x00	; 0
  140:	80 81       	ld	r24, Z
  142:	8f 7d       	andi	r24, 0xDF	; 223
  144:	80 83       	st	Z, r24
+	ADCSRA |= (1 << ADEN);  // Enable ADC
  146:	8c 91       	ld	r24, X
  148:	80 68       	ori	r24, 0x80	; 128
  14a:	8c 93       	st	X, r24
@@ -174,864 +188,866 @@ uint8_t getOCD_TH(uint8_t motor)
 {
 	return (uint8_t)getParam(motor, OCD_TH);
 }
- 14e:	28 98       	cbi	0x05, 0	; 5
- 150:	0e 94 70 04 	call	0x8e0	; 0x8e0 <transfer>
- 154:	28 9a       	sbi	0x05, 0	; 5
- 156:	08 95       	ret
+ 14e:	0e 94 70 04 	call	0x8e0	; 0x8e0 <transfer>
+ 152:	08 95       	ret
 
-00000158 <SPIXferMotors>:
- 158:	9f 92       	push	r9
- 15a:	af 92       	push	r10
- 15c:	bf 92       	push	r11
- 15e:	cf 92       	push	r12
- 160:	df 92       	push	r13
- 162:	ef 92       	push	r14
- 164:	ff 92       	push	r15
- 166:	0f 93       	push	r16
- 168:	1f 93       	push	r17
- 16a:	cf 93       	push	r28
- 16c:	df 93       	push	r29
- 16e:	00 d0       	rcall	.+0      	; 0x170 <SPIXferMotors+0x18>
- 170:	1f 92       	push	r1
- 172:	cd b7       	in	r28, 0x3d	; 61
- 174:	de b7       	in	r29, 0x3e	; 62
- 176:	96 2e       	mov	r9, r22
- 178:	81 11       	cpse	r24, r1
- 17a:	01 c0       	rjmp	.+2      	; 0x17e <SPIXferMotors+0x26>
- 17c:	81 e0       	ldi	r24, 0x01	; 1
- 17e:	84 30       	cpi	r24, 0x04	; 4
- 180:	08 f0       	brcs	.+2      	; 0x184 <SPIXferMotors+0x2c>
- 182:	83 e0       	ldi	r24, 0x03	; 3
- 184:	28 98       	cbi	0x05, 0	; 5
- 186:	9e 01       	movw	r18, r28
- 188:	2f 5f       	subi	r18, 0xFF	; 255
- 18a:	3f 4f       	sbci	r19, 0xFF	; 255
- 18c:	69 01       	movw	r12, r18
- 18e:	0f 2e       	mov	r0, r31
- 190:	f3 e0       	ldi	r31, 0x03	; 3
- 192:	ef 2e       	mov	r14, r31
- 194:	f1 2c       	mov	r15, r1
- 196:	f0 2d       	mov	r31, r0
- 198:	08 2f       	mov	r16, r24
- 19a:	10 e0       	ldi	r17, 0x00	; 0
- 19c:	58 01       	movw	r10, r16
- 19e:	0e 15       	cp	r16, r14
- 1a0:	1f 05       	cpc	r17, r15
- 1a2:	31 f4       	brne	.+12     	; 0x1b0 <SPIXferMotors+0x58>
- 1a4:	89 2d       	mov	r24, r9
- 1a6:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
- 1aa:	f6 01       	movw	r30, r12
- 1ac:	80 83       	st	Z, r24
- 1ae:	05 c0       	rjmp	.+10     	; 0x1ba <SPIXferMotors+0x62>
- 1b0:	80 e0       	ldi	r24, 0x00	; 0
- 1b2:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
- 1b6:	f6 01       	movw	r30, r12
- 1b8:	80 83       	st	Z, r24
- 1ba:	f1 e0       	ldi	r31, 0x01	; 1
- 1bc:	ef 1a       	sub	r14, r31
- 1be:	f1 08       	sbc	r15, r1
- 1c0:	2f ef       	ldi	r18, 0xFF	; 255
- 1c2:	c2 1a       	sub	r12, r18
- 1c4:	d2 0a       	sbc	r13, r18
- 1c6:	e1 14       	cp	r14, r1
- 1c8:	f1 04       	cpc	r15, r1
- 1ca:	41 f7       	brne	.-48     	; 0x19c <SPIXferMotors+0x44>
- 1cc:	28 9a       	sbi	0x05, 0	; 5
- 1ce:	fe 01       	movw	r30, r28
- 1d0:	ea 19       	sub	r30, r10
- 1d2:	fb 09       	sbc	r31, r11
- 1d4:	84 81       	ldd	r24, Z+4	; 0x04
+00000154 <SPIXferMotors>:
+ 154:	9f 92       	push	r9
+ 156:	af 92       	push	r10
+ 158:	bf 92       	push	r11
+ 15a:	cf 92       	push	r12
+ 15c:	df 92       	push	r13
+ 15e:	ef 92       	push	r14
+ 160:	ff 92       	push	r15
+ 162:	0f 93       	push	r16
+ 164:	1f 93       	push	r17
+ 166:	cf 93       	push	r28
+ 168:	df 93       	push	r29
+ 16a:	00 d0       	rcall	.+0      	; 0x16c <SPIXferMotors+0x18>
+ 16c:	1f 92       	push	r1
+ 16e:	cd b7       	in	r28, 0x3d	; 61
+ 170:	de b7       	in	r29, 0x3e	; 62
+ 172:	96 2e       	mov	r9, r22
+ 174:	81 11       	cpse	r24, r1
+ 176:	01 c0       	rjmp	.+2      	; 0x17a <SPIXferMotors+0x26>
+ 178:	81 e0       	ldi	r24, 0x01	; 1
+ 17a:	84 30       	cpi	r24, 0x04	; 4
+ 17c:	08 f0       	brcs	.+2      	; 0x180 <SPIXferMotors+0x2c>
+ 17e:	83 e0       	ldi	r24, 0x03	; 3
+ 180:	28 98       	cbi	0x05, 0	; 5
+ 182:	9e 01       	movw	r18, r28
+ 184:	2f 5f       	subi	r18, 0xFF	; 255
+ 186:	3f 4f       	sbci	r19, 0xFF	; 255
+ 188:	69 01       	movw	r12, r18
+ 18a:	0f 2e       	mov	r0, r31
+ 18c:	f3 e0       	ldi	r31, 0x03	; 3
+ 18e:	ef 2e       	mov	r14, r31
+ 190:	f1 2c       	mov	r15, r1
+ 192:	f0 2d       	mov	r31, r0
+ 194:	08 2f       	mov	r16, r24
+ 196:	10 e0       	ldi	r17, 0x00	; 0
+ 198:	58 01       	movw	r10, r16
+ 19a:	0e 15       	cp	r16, r14
+ 19c:	1f 05       	cpc	r17, r15
+ 19e:	31 f4       	brne	.+12     	; 0x1ac <SPIXferMotors+0x58>
+ 1a0:	89 2d       	mov	r24, r9
+ 1a2:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
+ 1a6:	f6 01       	movw	r30, r12
+ 1a8:	80 83       	st	Z, r24
+ 1aa:	05 c0       	rjmp	.+10     	; 0x1b6 <SPIXferMotors+0x62>
+ 1ac:	80 e0       	ldi	r24, 0x00	; 0
+ 1ae:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
+ 1b2:	f6 01       	movw	r30, r12
+ 1b4:	80 83       	st	Z, r24
+ 1b6:	f1 e0       	ldi	r31, 0x01	; 1
+ 1b8:	ef 1a       	sub	r14, r31
+ 1ba:	f1 08       	sbc	r15, r1
+ 1bc:	2f ef       	ldi	r18, 0xFF	; 255
+ 1be:	c2 1a       	sub	r12, r18
+ 1c0:	d2 0a       	sbc	r13, r18
+ 1c2:	e1 14       	cp	r14, r1
+ 1c4:	f1 04       	cpc	r15, r1
+ 1c6:	41 f7       	brne	.-48     	; 0x198 <SPIXferMotors+0x44>
+ 1c8:	28 9a       	sbi	0x05, 0	; 5
+ 1ca:	fe 01       	movw	r30, r28
+ 1cc:	ea 19       	sub	r30, r10
+ 1ce:	fb 09       	sbc	r31, r11
+ 1d0:	84 81       	ldd	r24, Z+4	; 0x04
+ 1d2:	0f 90       	pop	r0
+ 1d4:	0f 90       	pop	r0
  1d6:	0f 90       	pop	r0
- 1d8:	0f 90       	pop	r0
- 1da:	0f 90       	pop	r0
- 1dc:	df 91       	pop	r29
- 1de:	cf 91       	pop	r28
- 1e0:	1f 91       	pop	r17
- 1e2:	0f 91       	pop	r16
- 1e4:	ff 90       	pop	r15
- 1e6:	ef 90       	pop	r14
- 1e8:	df 90       	pop	r13
- 1ea:	cf 90       	pop	r12
- 1ec:	bf 90       	pop	r11
- 1ee:	af 90       	pop	r10
- 1f0:	9f 90       	pop	r9
- 1f2:	08 95       	ret
+ 1d8:	df 91       	pop	r29
+ 1da:	cf 91       	pop	r28
+ 1dc:	1f 91       	pop	r17
+ 1de:	0f 91       	pop	r16
+ 1e0:	ff 90       	pop	r15
+ 1e2:	ef 90       	pop	r14
+ 1e4:	df 90       	pop	r13
+ 1e6:	cf 90       	pop	r12
+ 1e8:	bf 90       	pop	r11
+ 1ea:	af 90       	pop	r10
+ 1ec:	9f 90       	pop	r9
+ 1ee:	08 95       	ret
 
-000001f4 <SPIXferParam>:
- 1f4:	6f 92       	push	r6
- 1f6:	7f 92       	push	r7
- 1f8:	8f 92       	push	r8
- 1fa:	9f 92       	push	r9
- 1fc:	af 92       	push	r10
- 1fe:	bf 92       	push	r11
- 200:	cf 92       	push	r12
- 202:	df 92       	push	r13
- 204:	ef 92       	push	r14
- 206:	ff 92       	push	r15
- 208:	0f 93       	push	r16
- 20a:	1f 93       	push	r17
- 20c:	cf 93       	push	r28
- 20e:	df 93       	push	r29
- 210:	78 2e       	mov	r7, r24
- 212:	4a 01       	movw	r8, r20
- 214:	5b 01       	movw	r10, r22
- 216:	62 2e       	mov	r6, r18
- 218:	02 2f       	mov	r16, r18
+000001f0 <SPIXferParam>:
+ 1f0:	6f 92       	push	r6
+ 1f2:	7f 92       	push	r7
+ 1f4:	8f 92       	push	r8
+ 1f6:	9f 92       	push	r9
+ 1f8:	af 92       	push	r10
+ 1fa:	bf 92       	push	r11
+ 1fc:	cf 92       	push	r12
+ 1fe:	df 92       	push	r13
+ 200:	ef 92       	push	r14
+ 202:	ff 92       	push	r15
+ 204:	0f 93       	push	r16
+ 206:	1f 93       	push	r17
+ 208:	cf 93       	push	r28
+ 20a:	df 93       	push	r29
+ 20c:	78 2e       	mov	r7, r24
+ 20e:	4a 01       	movw	r8, r20
+ 210:	5b 01       	movw	r10, r22
+ 212:	62 2e       	mov	r6, r18
+ 214:	02 2f       	mov	r16, r18
+ 216:	06 95       	lsr	r16
+ 218:	06 95       	lsr	r16
  21a:	06 95       	lsr	r16
- 21c:	06 95       	lsr	r16
- 21e:	06 95       	lsr	r16
- 220:	82 2f       	mov	r24, r18
- 222:	87 70       	andi	r24, 0x07	; 7
- 224:	09 f0       	breq	.+2      	; 0x228 <SPIXferParam+0x34>
- 226:	0f 5f       	subi	r16, 0xFF	; 255
- 228:	00 23       	and	r16, r16
- 22a:	41 f1       	breq	.+80     	; 0x27c <SPIXferParam+0x88>
- 22c:	c0 2f       	mov	r28, r16
- 22e:	d0 e0       	ldi	r29, 0x00	; 0
- 230:	21 97       	sbiw	r28, 0x01	; 1
+ 21c:	82 2f       	mov	r24, r18
+ 21e:	87 70       	andi	r24, 0x07	; 7
+ 220:	09 f0       	breq	.+2      	; 0x224 <SPIXferParam+0x34>
+ 222:	0f 5f       	subi	r16, 0xFF	; 255
+ 224:	00 23       	and	r16, r16
+ 226:	41 f1       	breq	.+80     	; 0x278 <SPIXferParam+0x88>
+ 228:	c0 2f       	mov	r28, r16
+ 22a:	d0 e0       	ldi	r29, 0x00	; 0
+ 22c:	21 97       	sbiw	r28, 0x01	; 1
+ 22e:	cc 0f       	add	r28, r28
+ 230:	dd 1f       	adc	r29, r29
  232:	cc 0f       	add	r28, r28
  234:	dd 1f       	adc	r29, r29
  236:	cc 0f       	add	r28, r28
  238:	dd 1f       	adc	r29, r29
- 23a:	cc 0f       	add	r28, r28
- 23c:	dd 1f       	adc	r29, r29
- 23e:	10 e0       	ldi	r17, 0x00	; 0
- 240:	80 e0       	ldi	r24, 0x00	; 0
- 242:	90 e0       	ldi	r25, 0x00	; 0
- 244:	dc 01       	movw	r26, r24
- 246:	cc 24       	eor	r12, r12
- 248:	d8 2e       	mov	r13, r24
- 24a:	e9 2e       	mov	r14, r25
- 24c:	fa 2e       	mov	r15, r26
- 24e:	c5 01       	movw	r24, r10
- 250:	b4 01       	movw	r22, r8
- 252:	0c 2e       	mov	r0, r28
- 254:	04 c0       	rjmp	.+8      	; 0x25e <SPIXferParam+0x6a>
- 256:	96 95       	lsr	r25
- 258:	87 95       	ror	r24
- 25a:	77 95       	ror	r23
- 25c:	67 95       	ror	r22
- 25e:	0a 94       	dec	r0
- 260:	d2 f7       	brpl	.-12     	; 0x256 <SPIXferParam+0x62>
- 262:	87 2d       	mov	r24, r7
- 264:	0e 94 ac 00 	call	0x158	; 0x158 <SPIXferMotors>
- 268:	a7 01       	movw	r20, r14
- 26a:	96 01       	movw	r18, r12
- 26c:	28 2b       	or	r18, r24
- 26e:	da 01       	movw	r26, r20
- 270:	c9 01       	movw	r24, r18
- 272:	1f 5f       	subi	r17, 0xFF	; 255
- 274:	28 97       	sbiw	r28, 0x08	; 8
- 276:	01 13       	cpse	r16, r17
- 278:	e6 cf       	rjmp	.-52     	; 0x246 <SPIXferParam+0x52>
- 27a:	03 c0       	rjmp	.+6      	; 0x282 <SPIXferParam+0x8e>
- 27c:	80 e0       	ldi	r24, 0x00	; 0
- 27e:	90 e0       	ldi	r25, 0x00	; 0
- 280:	dc 01       	movw	r26, r24
- 282:	20 e2       	ldi	r18, 0x20	; 32
- 284:	30 e0       	ldi	r19, 0x00	; 0
- 286:	26 19       	sub	r18, r6
- 288:	31 09       	sbc	r19, r1
- 28a:	4f ef       	ldi	r20, 0xFF	; 255
- 28c:	5f ef       	ldi	r21, 0xFF	; 255
- 28e:	ba 01       	movw	r22, r20
- 290:	04 c0       	rjmp	.+8      	; 0x29a <SPIXferParam+0xa6>
- 292:	76 95       	lsr	r23
- 294:	67 95       	ror	r22
- 296:	57 95       	ror	r21
- 298:	47 95       	ror	r20
- 29a:	2a 95       	dec	r18
- 29c:	d2 f7       	brpl	.-12     	; 0x292 <SPIXferParam+0x9e>
- 29e:	8a 01       	movw	r16, r20
- 2a0:	9b 01       	movw	r18, r22
- 2a2:	08 23       	and	r16, r24
- 2a4:	19 23       	and	r17, r25
- 2a6:	2a 23       	and	r18, r26
- 2a8:	3b 23       	and	r19, r27
- 2aa:	c9 01       	movw	r24, r18
- 2ac:	b8 01       	movw	r22, r16
- 2ae:	df 91       	pop	r29
- 2b0:	cf 91       	pop	r28
- 2b2:	1f 91       	pop	r17
- 2b4:	0f 91       	pop	r16
- 2b6:	ff 90       	pop	r15
- 2b8:	ef 90       	pop	r14
- 2ba:	df 90       	pop	r13
- 2bc:	cf 90       	pop	r12
- 2be:	bf 90       	pop	r11
- 2c0:	af 90       	pop	r10
- 2c2:	9f 90       	pop	r9
- 2c4:	8f 90       	pop	r8
- 2c6:	7f 90       	pop	r7
- 2c8:	6f 90       	pop	r6
- 2ca:	08 95       	ret
+ 23a:	10 e0       	ldi	r17, 0x00	; 0
+ 23c:	80 e0       	ldi	r24, 0x00	; 0
+ 23e:	90 e0       	ldi	r25, 0x00	; 0
+ 240:	dc 01       	movw	r26, r24
+ 242:	cc 24       	eor	r12, r12
+ 244:	d8 2e       	mov	r13, r24
+ 246:	e9 2e       	mov	r14, r25
+ 248:	fa 2e       	mov	r15, r26
+ 24a:	c5 01       	movw	r24, r10
+ 24c:	b4 01       	movw	r22, r8
+ 24e:	0c 2e       	mov	r0, r28
+ 250:	04 c0       	rjmp	.+8      	; 0x25a <SPIXferParam+0x6a>
+ 252:	96 95       	lsr	r25
+ 254:	87 95       	ror	r24
+ 256:	77 95       	ror	r23
+ 258:	67 95       	ror	r22
+ 25a:	0a 94       	dec	r0
+ 25c:	d2 f7       	brpl	.-12     	; 0x252 <SPIXferParam+0x62>
+ 25e:	87 2d       	mov	r24, r7
+ 260:	0e 94 aa 00 	call	0x154	; 0x154 <SPIXferMotors>
+ 264:	a7 01       	movw	r20, r14
+ 266:	96 01       	movw	r18, r12
+ 268:	28 2b       	or	r18, r24
+ 26a:	da 01       	movw	r26, r20
+ 26c:	c9 01       	movw	r24, r18
+ 26e:	1f 5f       	subi	r17, 0xFF	; 255
+ 270:	28 97       	sbiw	r28, 0x08	; 8
+ 272:	01 13       	cpse	r16, r17
+ 274:	e6 cf       	rjmp	.-52     	; 0x242 <SPIXferParam+0x52>
+ 276:	03 c0       	rjmp	.+6      	; 0x27e <SPIXferParam+0x8e>
+ 278:	80 e0       	ldi	r24, 0x00	; 0
+ 27a:	90 e0       	ldi	r25, 0x00	; 0
+ 27c:	dc 01       	movw	r26, r24
+ 27e:	20 e2       	ldi	r18, 0x20	; 32
+ 280:	30 e0       	ldi	r19, 0x00	; 0
+ 282:	26 19       	sub	r18, r6
+ 284:	31 09       	sbc	r19, r1
+ 286:	4f ef       	ldi	r20, 0xFF	; 255
+ 288:	5f ef       	ldi	r21, 0xFF	; 255
+ 28a:	ba 01       	movw	r22, r20
+ 28c:	04 c0       	rjmp	.+8      	; 0x296 <SPIXferParam+0xa6>
+ 28e:	76 95       	lsr	r23
+ 290:	67 95       	ror	r22
+ 292:	57 95       	ror	r21
+ 294:	47 95       	ror	r20
+ 296:	2a 95       	dec	r18
+ 298:	d2 f7       	brpl	.-12     	; 0x28e <SPIXferParam+0x9e>
+ 29a:	8a 01       	movw	r16, r20
+ 29c:	9b 01       	movw	r18, r22
+ 29e:	08 23       	and	r16, r24
+ 2a0:	19 23       	and	r17, r25
+ 2a2:	2a 23       	and	r18, r26
+ 2a4:	3b 23       	and	r19, r27
+ 2a6:	c9 01       	movw	r24, r18
+ 2a8:	b8 01       	movw	r22, r16
+ 2aa:	df 91       	pop	r29
+ 2ac:	cf 91       	pop	r28
+ 2ae:	1f 91       	pop	r17
+ 2b0:	0f 91       	pop	r16
+ 2b2:	ff 90       	pop	r15
+ 2b4:	ef 90       	pop	r14
+ 2b6:	df 90       	pop	r13
+ 2b8:	cf 90       	pop	r12
+ 2ba:	bf 90       	pop	r11
+ 2bc:	af 90       	pop	r10
+ 2be:	9f 90       	pop	r9
+ 2c0:	8f 90       	pop	r8
+ 2c2:	7f 90       	pop	r7
+ 2c4:	6f 90       	pop	r6
+ 2c6:	08 95       	ret
 
-000002cc <getStatus>:
- 2cc:	cf 93       	push	r28
- 2ce:	c8 2f       	mov	r28, r24
- 2d0:	80 ed       	ldi	r24, 0xD0	; 208
- 2d2:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
- 2d6:	60 e0       	ldi	r22, 0x00	; 0
- 2d8:	8c 2f       	mov	r24, r28
- 2da:	0e 94 ac 00 	call	0x158	; 0x158 <SPIXferMotors>
- 2de:	60 e0       	ldi	r22, 0x00	; 0
- 2e0:	8c 2f       	mov	r24, r28
- 2e2:	0e 94 ac 00 	call	0x158	; 0x158 <SPIXferMotors>
- 2e6:	cf 91       	pop	r28
- 2e8:	08 95       	ret
+000002c8 <getStatus>:
+ 2c8:	cf 93       	push	r28
+ 2ca:	c8 2f       	mov	r28, r24
+ 2cc:	60 ed       	ldi	r22, 0xD0	; 208
+ 2ce:	0e 94 aa 00 	call	0x154	; 0x154 <SPIXferMotors>
+ 2d2:	60 e0       	ldi	r22, 0x00	; 0
+ 2d4:	8c 2f       	mov	r24, r28
+ 2d6:	0e 94 aa 00 	call	0x154	; 0x154 <SPIXferMotors>
+ 2da:	60 e0       	ldi	r22, 0x00	; 0
+ 2dc:	8c 2f       	mov	r24, r28
+ 2de:	0e 94 aa 00 	call	0x154	; 0x154 <SPIXferMotors>
+ 2e2:	cf 91       	pop	r28
+ 2e4:	08 95       	ret
 
-000002ea <powerSTEP01_GPIO_Init>:
- 2ea:	20 9a       	sbi	0x04, 0	; 4
- 2ec:	28 9a       	sbi	0x05, 0	; 5
- 2ee:	87 b1       	in	r24, 0x07	; 7
- 2f0:	87 b9       	out	0x07, r24	; 7
- 2f2:	88 b1       	in	r24, 0x08	; 8
- 2f4:	80 6c       	ori	r24, 0xC0	; 192
- 2f6:	88 b9       	out	0x08, r24	; 8
- 2f8:	6e 9a       	sbi	0x0d, 6	; 13
- 2fa:	76 98       	cbi	0x0e, 6	; 14
+000002e6 <powerSTEP01_GPIO_Init>:
+ 2e6:	20 9a       	sbi	0x04, 0	; 4
+ 2e8:	28 9a       	sbi	0x05, 0	; 5
+ 2ea:	87 b1       	in	r24, 0x07	; 7
+ 2ec:	87 b9       	out	0x07, r24	; 7
+ 2ee:	88 b1       	in	r24, 0x08	; 8
+ 2f0:	80 6c       	ori	r24, 0xC0	; 192
+ 2f2:	88 b9       	out	0x08, r24	; 8
+ 2f4:	6e 9a       	sbi	0x0d, 6	; 13
+ 2f6:	76 98       	cbi	0x0e, 6	; 14
+ 2f8:	08 95       	ret
+
+000002fa <releaseReset>:
+ 2fa:	76 9a       	sbi	0x0e, 6	; 14
  2fc:	08 95       	ret
 
-000002fe <releaseReset>:
- 2fe:	76 9a       	sbi	0x0e, 6	; 14
- 300:	08 95       	ret
+000002fe <paramHandler>:
+ 2fe:	0f 93       	push	r16
+ 300:	1f 93       	push	r17
+ 302:	e6 2f       	mov	r30, r22
+ 304:	ba 01       	movw	r22, r20
+ 306:	a9 01       	movw	r20, r18
+ 308:	0e 2f       	mov	r16, r30
+ 30a:	10 e0       	ldi	r17, 0x00	; 0
+ 30c:	f8 01       	movw	r30, r16
+ 30e:	31 97       	sbiw	r30, 0x01	; 1
+ 310:	eb 31       	cpi	r30, 0x1B	; 27
+ 312:	f1 05       	cpc	r31, r1
+ 314:	08 f0       	brcs	.+2      	; 0x318 <paramHandler+0x1a>
+ 316:	82 c0       	rjmp	.+260    	; 0x41c <__LOCK_REGION_LENGTH__+0x1c>
+ 318:	ea 5a       	subi	r30, 0xAA	; 170
+ 31a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 31c:	0c 94 02 06 	jmp	0xc04	; 0xc04 <__tablejump2__>
+ 320:	26 e1       	ldi	r18, 0x16	; 22
+ 322:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 326:	80 c0       	rjmp	.+256    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 328:	29 e0       	ldi	r18, 0x09	; 9
+ 32a:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 32e:	7c c0       	rjmp	.+248    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 330:	26 e1       	ldi	r18, 0x16	; 22
+ 332:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 336:	78 c0       	rjmp	.+240    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 338:	24 e1       	ldi	r18, 0x14	; 20
+ 33a:	40 e0       	ldi	r20, 0x00	; 0
+ 33c:	50 e0       	ldi	r21, 0x00	; 0
+ 33e:	ba 01       	movw	r22, r20
+ 340:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 344:	71 c0       	rjmp	.+226    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 346:	2c e0       	ldi	r18, 0x0C	; 12
+ 348:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 34c:	6d c0       	rjmp	.+218    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 34e:	2c e0       	ldi	r18, 0x0C	; 12
+ 350:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 354:	69 c0       	rjmp	.+210    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 356:	2a e0       	ldi	r18, 0x0A	; 10
+ 358:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 35c:	65 c0       	rjmp	.+202    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 35e:	2d e0       	ldi	r18, 0x0D	; 13
+ 360:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 364:	61 c0       	rjmp	.+194    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 366:	2a e0       	ldi	r18, 0x0A	; 10
+ 368:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 36c:	5d c0       	rjmp	.+186    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 36e:	28 e0       	ldi	r18, 0x08	; 8
+ 370:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 374:	59 c0       	rjmp	.+178    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 376:	28 e0       	ldi	r18, 0x08	; 8
+ 378:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 37c:	55 c0       	rjmp	.+170    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 37e:	28 e0       	ldi	r18, 0x08	; 8
+ 380:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 384:	51 c0       	rjmp	.+162    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 386:	28 e0       	ldi	r18, 0x08	; 8
+ 388:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 38c:	4d c0       	rjmp	.+154    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 38e:	2e e0       	ldi	r18, 0x0E	; 14
+ 390:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 394:	49 c0       	rjmp	.+146    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 396:	28 e0       	ldi	r18, 0x08	; 8
+ 398:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 39c:	45 c0       	rjmp	.+138    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 39e:	28 e0       	ldi	r18, 0x08	; 8
+ 3a0:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 3a4:	41 c0       	rjmp	.+130    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 3a6:	28 e0       	ldi	r18, 0x08	; 8
+ 3a8:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 3ac:	3d c0       	rjmp	.+122    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 3ae:	4f 70       	andi	r20, 0x0F	; 15
+ 3b0:	55 27       	eor	r21, r21
+ 3b2:	66 27       	eor	r22, r22
+ 3b4:	77 27       	eor	r23, r23
+ 3b6:	28 e0       	ldi	r18, 0x08	; 8
+ 3b8:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 3bc:	35 c0       	rjmp	.+106    	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 3be:	28 e0       	ldi	r18, 0x08	; 8
+ 3c0:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 3c4:	31 c0       	rjmp	.+98     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 3c6:	4f 71       	andi	r20, 0x1F	; 31
+ 3c8:	55 27       	eor	r21, r21
+ 3ca:	66 27       	eor	r22, r22
+ 3cc:	77 27       	eor	r23, r23
+ 3ce:	28 e0       	ldi	r18, 0x08	; 8
+ 3d0:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 3d4:	29 c0       	rjmp	.+82     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 3d6:	4f 71       	andi	r20, 0x1F	; 31
+ 3d8:	55 27       	eor	r21, r21
+ 3da:	66 27       	eor	r22, r22
+ 3dc:	77 27       	eor	r23, r23
+ 3de:	28 e0       	ldi	r18, 0x08	; 8
+ 3e0:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 3e4:	21 c0       	rjmp	.+66     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 3e6:	28 e0       	ldi	r18, 0x08	; 8
+ 3e8:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 3ec:	1d c0       	rjmp	.+58     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 3ee:	28 e0       	ldi	r18, 0x08	; 8
+ 3f0:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 3f4:	19 c0       	rjmp	.+50     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 3f6:	20 e1       	ldi	r18, 0x10	; 16
+ 3f8:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 3fc:	15 c0       	rjmp	.+42     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 3fe:	28 e0       	ldi	r18, 0x08	; 8
+ 400:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 404:	11 c0       	rjmp	.+34     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 406:	20 e1       	ldi	r18, 0x10	; 16
+ 408:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 40c:	0d c0       	rjmp	.+26     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 40e:	20 e1       	ldi	r18, 0x10	; 16
+ 410:	40 e0       	ldi	r20, 0x00	; 0
+ 412:	50 e0       	ldi	r21, 0x00	; 0
+ 414:	ba 01       	movw	r22, r20
+ 416:	0e 94 f8 00 	call	0x1f0	; 0x1f0 <SPIXferParam>
+ 41a:	06 c0       	rjmp	.+12     	; 0x428 <__LOCK_REGION_LENGTH__+0x28>
+ 41c:	64 2f       	mov	r22, r20
+ 41e:	0e 94 aa 00 	call	0x154	; 0x154 <SPIXferMotors>
+ 422:	60 e0       	ldi	r22, 0x00	; 0
+ 424:	70 e0       	ldi	r23, 0x00	; 0
+ 426:	cb 01       	movw	r24, r22
+ 428:	1f 91       	pop	r17
+ 42a:	0f 91       	pop	r16
+ 42c:	08 95       	ret
 
-00000302 <paramHandler>:
- 302:	0f 93       	push	r16
- 304:	1f 93       	push	r17
- 306:	e6 2f       	mov	r30, r22
- 308:	ba 01       	movw	r22, r20
- 30a:	a9 01       	movw	r20, r18
- 30c:	0e 2f       	mov	r16, r30
- 30e:	10 e0       	ldi	r17, 0x00	; 0
- 310:	f8 01       	movw	r30, r16
- 312:	31 97       	sbiw	r30, 0x01	; 1
- 314:	eb 31       	cpi	r30, 0x1B	; 27
- 316:	f1 05       	cpc	r31, r1
- 318:	08 f0       	brcs	.+2      	; 0x31c <paramHandler+0x1a>
- 31a:	82 c0       	rjmp	.+260    	; 0x420 <__LOCK_REGION_LENGTH__+0x20>
- 31c:	ea 5a       	subi	r30, 0xAA	; 170
- 31e:	ff 4f       	sbci	r31, 0xFF	; 255
- 320:	0c 94 02 06 	jmp	0xc04	; 0xc04 <__tablejump2__>
- 324:	26 e1       	ldi	r18, 0x16	; 22
- 326:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 32a:	80 c0       	rjmp	.+256    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 32c:	29 e0       	ldi	r18, 0x09	; 9
- 32e:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 332:	7c c0       	rjmp	.+248    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 334:	26 e1       	ldi	r18, 0x16	; 22
- 336:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 33a:	78 c0       	rjmp	.+240    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 33c:	24 e1       	ldi	r18, 0x14	; 20
- 33e:	40 e0       	ldi	r20, 0x00	; 0
- 340:	50 e0       	ldi	r21, 0x00	; 0
- 342:	ba 01       	movw	r22, r20
- 344:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 348:	71 c0       	rjmp	.+226    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 34a:	2c e0       	ldi	r18, 0x0C	; 12
- 34c:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 350:	6d c0       	rjmp	.+218    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 352:	2c e0       	ldi	r18, 0x0C	; 12
- 354:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 358:	69 c0       	rjmp	.+210    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 35a:	2a e0       	ldi	r18, 0x0A	; 10
- 35c:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 360:	65 c0       	rjmp	.+202    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 362:	2d e0       	ldi	r18, 0x0D	; 13
- 364:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 368:	61 c0       	rjmp	.+194    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 36a:	2a e0       	ldi	r18, 0x0A	; 10
- 36c:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 370:	5d c0       	rjmp	.+186    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 372:	28 e0       	ldi	r18, 0x08	; 8
- 374:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 378:	59 c0       	rjmp	.+178    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 37a:	28 e0       	ldi	r18, 0x08	; 8
- 37c:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 380:	55 c0       	rjmp	.+170    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 382:	28 e0       	ldi	r18, 0x08	; 8
- 384:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 388:	51 c0       	rjmp	.+162    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 38a:	28 e0       	ldi	r18, 0x08	; 8
- 38c:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 390:	4d c0       	rjmp	.+154    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 392:	2e e0       	ldi	r18, 0x0E	; 14
- 394:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 398:	49 c0       	rjmp	.+146    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 39a:	28 e0       	ldi	r18, 0x08	; 8
- 39c:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 3a0:	45 c0       	rjmp	.+138    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 3a2:	28 e0       	ldi	r18, 0x08	; 8
- 3a4:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 3a8:	41 c0       	rjmp	.+130    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 3aa:	28 e0       	ldi	r18, 0x08	; 8
- 3ac:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 3b0:	3d c0       	rjmp	.+122    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 3b2:	4f 70       	andi	r20, 0x0F	; 15
- 3b4:	55 27       	eor	r21, r21
- 3b6:	66 27       	eor	r22, r22
- 3b8:	77 27       	eor	r23, r23
- 3ba:	28 e0       	ldi	r18, 0x08	; 8
- 3bc:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 3c0:	35 c0       	rjmp	.+106    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 3c2:	28 e0       	ldi	r18, 0x08	; 8
- 3c4:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 3c8:	31 c0       	rjmp	.+98     	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 3ca:	4f 71       	andi	r20, 0x1F	; 31
- 3cc:	55 27       	eor	r21, r21
- 3ce:	66 27       	eor	r22, r22
- 3d0:	77 27       	eor	r23, r23
- 3d2:	28 e0       	ldi	r18, 0x08	; 8
- 3d4:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 3d8:	29 c0       	rjmp	.+82     	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 3da:	4f 71       	andi	r20, 0x1F	; 31
- 3dc:	55 27       	eor	r21, r21
- 3de:	66 27       	eor	r22, r22
- 3e0:	77 27       	eor	r23, r23
- 3e2:	28 e0       	ldi	r18, 0x08	; 8
- 3e4:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 3e8:	21 c0       	rjmp	.+66     	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 3ea:	28 e0       	ldi	r18, 0x08	; 8
- 3ec:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 3f0:	1d c0       	rjmp	.+58     	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 3f2:	28 e0       	ldi	r18, 0x08	; 8
- 3f4:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 3f8:	19 c0       	rjmp	.+50     	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 3fa:	20 e1       	ldi	r18, 0x10	; 16
- 3fc:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 400:	15 c0       	rjmp	.+42     	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 402:	28 e0       	ldi	r18, 0x08	; 8
- 404:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 408:	11 c0       	rjmp	.+34     	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 40a:	20 e1       	ldi	r18, 0x10	; 16
- 40c:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 410:	0d c0       	rjmp	.+26     	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 412:	20 e1       	ldi	r18, 0x10	; 16
- 414:	40 e0       	ldi	r20, 0x00	; 0
- 416:	50 e0       	ldi	r21, 0x00	; 0
- 418:	ba 01       	movw	r22, r20
- 41a:	0e 94 fa 00 	call	0x1f4	; 0x1f4 <SPIXferParam>
- 41e:	06 c0       	rjmp	.+12     	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
- 420:	64 2f       	mov	r22, r20
- 422:	0e 94 ac 00 	call	0x158	; 0x158 <SPIXferMotors>
- 426:	60 e0       	ldi	r22, 0x00	; 0
- 428:	70 e0       	ldi	r23, 0x00	; 0
- 42a:	cb 01       	movw	r24, r22
- 42c:	1f 91       	pop	r17
- 42e:	0f 91       	pop	r16
- 430:	08 95       	ret
+0000042e <setParam>:
+ 42e:	cf 92       	push	r12
+ 430:	df 92       	push	r13
+ 432:	ef 92       	push	r14
+ 434:	ff 92       	push	r15
+ 436:	0f 93       	push	r16
+ 438:	1f 93       	push	r17
+ 43a:	cf 93       	push	r28
+ 43c:	df 93       	push	r29
+ 43e:	c8 2f       	mov	r28, r24
+ 440:	d4 2f       	mov	r29, r20
+ 442:	68 01       	movw	r12, r16
+ 444:	79 01       	movw	r14, r18
+ 446:	64 2f       	mov	r22, r20
+ 448:	0e 94 aa 00 	call	0x154	; 0x154 <SPIXferMotors>
+ 44c:	a7 01       	movw	r20, r14
+ 44e:	96 01       	movw	r18, r12
+ 450:	6d 2f       	mov	r22, r29
+ 452:	8c 2f       	mov	r24, r28
+ 454:	0e 94 7f 01 	call	0x2fe	; 0x2fe <paramHandler>
+ 458:	df 91       	pop	r29
+ 45a:	cf 91       	pop	r28
+ 45c:	1f 91       	pop	r17
+ 45e:	0f 91       	pop	r16
+ 460:	ff 90       	pop	r15
+ 462:	ef 90       	pop	r14
+ 464:	df 90       	pop	r13
+ 466:	cf 90       	pop	r12
+ 468:	08 95       	ret
 
-00000432 <setParam>:
- 432:	cf 92       	push	r12
- 434:	df 92       	push	r13
- 436:	ef 92       	push	r14
- 438:	ff 92       	push	r15
- 43a:	0f 93       	push	r16
- 43c:	1f 93       	push	r17
- 43e:	cf 93       	push	r28
- 440:	df 93       	push	r29
- 442:	c8 2f       	mov	r28, r24
- 444:	d4 2f       	mov	r29, r20
- 446:	68 01       	movw	r12, r16
- 448:	79 01       	movw	r14, r18
- 44a:	64 2f       	mov	r22, r20
- 44c:	0e 94 ac 00 	call	0x158	; 0x158 <SPIXferMotors>
- 450:	a7 01       	movw	r20, r14
- 452:	96 01       	movw	r18, r12
- 454:	6d 2f       	mov	r22, r29
- 456:	8c 2f       	mov	r24, r28
- 458:	0e 94 81 01 	call	0x302	; 0x302 <paramHandler>
- 45c:	df 91       	pop	r29
- 45e:	cf 91       	pop	r28
- 460:	1f 91       	pop	r17
- 462:	0f 91       	pop	r16
- 464:	ff 90       	pop	r15
- 466:	ef 90       	pop	r14
- 468:	df 90       	pop	r13
- 46a:	cf 90       	pop	r12
- 46c:	08 95       	ret
+0000046a <setRunKval>:
+ 46a:	0f 93       	push	r16
+ 46c:	1f 93       	push	r17
+ 46e:	06 2f       	mov	r16, r22
+ 470:	10 e0       	ldi	r17, 0x00	; 0
+ 472:	20 e0       	ldi	r18, 0x00	; 0
+ 474:	30 e0       	ldi	r19, 0x00	; 0
+ 476:	4a e0       	ldi	r20, 0x0A	; 10
+ 478:	60 e0       	ldi	r22, 0x00	; 0
+ 47a:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 47e:	1f 91       	pop	r17
+ 480:	0f 91       	pop	r16
+ 482:	08 95       	ret
 
-0000046e <setRunKval>:
- 46e:	0f 93       	push	r16
- 470:	1f 93       	push	r17
- 472:	06 2f       	mov	r16, r22
- 474:	10 e0       	ldi	r17, 0x00	; 0
- 476:	20 e0       	ldi	r18, 0x00	; 0
- 478:	30 e0       	ldi	r19, 0x00	; 0
- 47a:	4a e0       	ldi	r20, 0x0A	; 10
- 47c:	60 e0       	ldi	r22, 0x00	; 0
- 47e:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 482:	1f 91       	pop	r17
- 484:	0f 91       	pop	r16
- 486:	08 95       	ret
+00000484 <setHoldKval>:
+ 484:	0f 93       	push	r16
+ 486:	1f 93       	push	r17
+ 488:	06 2f       	mov	r16, r22
+ 48a:	10 e0       	ldi	r17, 0x00	; 0
+ 48c:	20 e0       	ldi	r18, 0x00	; 0
+ 48e:	30 e0       	ldi	r19, 0x00	; 0
+ 490:	49 e0       	ldi	r20, 0x09	; 9
+ 492:	60 e0       	ldi	r22, 0x00	; 0
+ 494:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 498:	1f 91       	pop	r17
+ 49a:	0f 91       	pop	r16
+ 49c:	08 95       	ret
 
-00000488 <setHoldKval>:
- 488:	0f 93       	push	r16
- 48a:	1f 93       	push	r17
- 48c:	06 2f       	mov	r16, r22
- 48e:	10 e0       	ldi	r17, 0x00	; 0
- 490:	20 e0       	ldi	r18, 0x00	; 0
- 492:	30 e0       	ldi	r19, 0x00	; 0
- 494:	49 e0       	ldi	r20, 0x09	; 9
- 496:	60 e0       	ldi	r22, 0x00	; 0
- 498:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 49c:	1f 91       	pop	r17
- 49e:	0f 91       	pop	r16
- 4a0:	08 95       	ret
+0000049e <setAccKval>:
+ 49e:	0f 93       	push	r16
+ 4a0:	1f 93       	push	r17
+ 4a2:	06 2f       	mov	r16, r22
+ 4a4:	10 e0       	ldi	r17, 0x00	; 0
+ 4a6:	20 e0       	ldi	r18, 0x00	; 0
+ 4a8:	30 e0       	ldi	r19, 0x00	; 0
+ 4aa:	4b e0       	ldi	r20, 0x0B	; 11
+ 4ac:	60 e0       	ldi	r22, 0x00	; 0
+ 4ae:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 4b2:	1f 91       	pop	r17
+ 4b4:	0f 91       	pop	r16
+ 4b6:	08 95       	ret
 
-000004a2 <setAccKval>:
- 4a2:	0f 93       	push	r16
- 4a4:	1f 93       	push	r17
- 4a6:	06 2f       	mov	r16, r22
- 4a8:	10 e0       	ldi	r17, 0x00	; 0
- 4aa:	20 e0       	ldi	r18, 0x00	; 0
- 4ac:	30 e0       	ldi	r19, 0x00	; 0
- 4ae:	4b e0       	ldi	r20, 0x0B	; 11
- 4b0:	60 e0       	ldi	r22, 0x00	; 0
- 4b2:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 4b6:	1f 91       	pop	r17
- 4b8:	0f 91       	pop	r16
- 4ba:	08 95       	ret
+000004b8 <setDecKval>:
+ 4b8:	0f 93       	push	r16
+ 4ba:	1f 93       	push	r17
+ 4bc:	06 2f       	mov	r16, r22
+ 4be:	10 e0       	ldi	r17, 0x00	; 0
+ 4c0:	20 e0       	ldi	r18, 0x00	; 0
+ 4c2:	30 e0       	ldi	r19, 0x00	; 0
+ 4c4:	4c e0       	ldi	r20, 0x0C	; 12
+ 4c6:	60 e0       	ldi	r22, 0x00	; 0
+ 4c8:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 4cc:	1f 91       	pop	r17
+ 4ce:	0f 91       	pop	r16
+ 4d0:	08 95       	ret
 
-000004bc <setDecKval>:
- 4bc:	0f 93       	push	r16
- 4be:	1f 93       	push	r17
- 4c0:	06 2f       	mov	r16, r22
- 4c2:	10 e0       	ldi	r17, 0x00	; 0
- 4c4:	20 e0       	ldi	r18, 0x00	; 0
- 4c6:	30 e0       	ldi	r19, 0x00	; 0
- 4c8:	4c e0       	ldi	r20, 0x0C	; 12
- 4ca:	60 e0       	ldi	r22, 0x00	; 0
- 4cc:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 4d0:	1f 91       	pop	r17
- 4d2:	0f 91       	pop	r16
- 4d4:	08 95       	ret
+000004d2 <setOCD_TH>:
+ 4d2:	0f 93       	push	r16
+ 4d4:	1f 93       	push	r17
+ 4d6:	06 2f       	mov	r16, r22
+ 4d8:	10 e0       	ldi	r17, 0x00	; 0
+ 4da:	20 e0       	ldi	r18, 0x00	; 0
+ 4dc:	30 e0       	ldi	r19, 0x00	; 0
+ 4de:	43 e1       	ldi	r20, 0x13	; 19
+ 4e0:	60 e0       	ldi	r22, 0x00	; 0
+ 4e2:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 4e6:	1f 91       	pop	r17
+ 4e8:	0f 91       	pop	r16
+ 4ea:	08 95       	ret
 
-000004d6 <setOCD_TH>:
- 4d6:	0f 93       	push	r16
- 4d8:	1f 93       	push	r17
- 4da:	06 2f       	mov	r16, r22
- 4dc:	10 e0       	ldi	r17, 0x00	; 0
- 4de:	20 e0       	ldi	r18, 0x00	; 0
- 4e0:	30 e0       	ldi	r19, 0x00	; 0
- 4e2:	43 e1       	ldi	r20, 0x13	; 19
- 4e4:	60 e0       	ldi	r22, 0x00	; 0
- 4e6:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 4ea:	1f 91       	pop	r17
- 4ec:	0f 91       	pop	r16
- 4ee:	08 95       	ret
+000004ec <setSTALL_TH>:
+ 4ec:	0f 93       	push	r16
+ 4ee:	1f 93       	push	r17
+ 4f0:	06 2f       	mov	r16, r22
+ 4f2:	10 e0       	ldi	r17, 0x00	; 0
+ 4f4:	20 e0       	ldi	r18, 0x00	; 0
+ 4f6:	30 e0       	ldi	r19, 0x00	; 0
+ 4f8:	44 e1       	ldi	r20, 0x14	; 20
+ 4fa:	60 e0       	ldi	r22, 0x00	; 0
+ 4fc:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 500:	1f 91       	pop	r17
+ 502:	0f 91       	pop	r16
+ 504:	08 95       	ret
 
-000004f0 <setSTALL_TH>:
- 4f0:	0f 93       	push	r16
- 4f2:	1f 93       	push	r17
- 4f4:	06 2f       	mov	r16, r22
- 4f6:	10 e0       	ldi	r17, 0x00	; 0
- 4f8:	20 e0       	ldi	r18, 0x00	; 0
- 4fa:	30 e0       	ldi	r19, 0x00	; 0
- 4fc:	44 e1       	ldi	r20, 0x14	; 20
- 4fe:	60 e0       	ldi	r22, 0x00	; 0
- 500:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 504:	1f 91       	pop	r17
- 506:	0f 91       	pop	r16
- 508:	08 95       	ret
+00000506 <setAcc>:
+ 506:	0f 93       	push	r16
+ 508:	1f 93       	push	r17
+ 50a:	cf 93       	push	r28
+ 50c:	c8 2f       	mov	r28, r24
+ 50e:	cb 01       	movw	r24, r22
+ 510:	ba 01       	movw	r22, r20
+ 512:	0e 94 c6 04 	call	0x98c	; 0x98c <__floatunsisf>
+ 516:	2c e8       	ldi	r18, 0x8C	; 140
+ 518:	3c eb       	ldi	r19, 0xBC	; 188
+ 51a:	4c e0       	ldi	r20, 0x0C	; 12
+ 51c:	5e e3       	ldi	r21, 0x3E	; 62
+ 51e:	0e 94 6d 05 	call	0xada	; 0xada <__mulsf3>
+ 522:	0e 94 97 04 	call	0x92e	; 0x92e <__fixunssfsi>
+ 526:	8b 01       	movw	r16, r22
+ 528:	9c 01       	movw	r18, r24
+ 52a:	01 15       	cp	r16, r1
+ 52c:	80 e1       	ldi	r24, 0x10	; 16
+ 52e:	18 07       	cpc	r17, r24
+ 530:	21 05       	cpc	r18, r1
+ 532:	31 05       	cpc	r19, r1
+ 534:	20 f0       	brcs	.+8      	; 0x53e <setAcc+0x38>
+ 536:	0f ef       	ldi	r16, 0xFF	; 255
+ 538:	1f e0       	ldi	r17, 0x0F	; 15
+ 53a:	20 e0       	ldi	r18, 0x00	; 0
+ 53c:	30 e0       	ldi	r19, 0x00	; 0
+ 53e:	45 e0       	ldi	r20, 0x05	; 5
+ 540:	60 e0       	ldi	r22, 0x00	; 0
+ 542:	8c 2f       	mov	r24, r28
+ 544:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 548:	cf 91       	pop	r28
+ 54a:	1f 91       	pop	r17
+ 54c:	0f 91       	pop	r16
+ 54e:	08 95       	ret
 
-0000050a <setAcc>:
- 50a:	0f 93       	push	r16
- 50c:	1f 93       	push	r17
- 50e:	cf 93       	push	r28
- 510:	c8 2f       	mov	r28, r24
- 512:	cb 01       	movw	r24, r22
- 514:	ba 01       	movw	r22, r20
- 516:	0e 94 c6 04 	call	0x98c	; 0x98c <__floatunsisf>
- 51a:	2c e8       	ldi	r18, 0x8C	; 140
- 51c:	3c eb       	ldi	r19, 0xBC	; 188
- 51e:	4c e0       	ldi	r20, 0x0C	; 12
- 520:	5e e3       	ldi	r21, 0x3E	; 62
- 522:	0e 94 6d 05 	call	0xada	; 0xada <__mulsf3>
- 526:	0e 94 97 04 	call	0x92e	; 0x92e <__fixunssfsi>
- 52a:	8b 01       	movw	r16, r22
- 52c:	9c 01       	movw	r18, r24
- 52e:	01 15       	cp	r16, r1
- 530:	80 e1       	ldi	r24, 0x10	; 16
- 532:	18 07       	cpc	r17, r24
- 534:	21 05       	cpc	r18, r1
- 536:	31 05       	cpc	r19, r1
- 538:	20 f0       	brcs	.+8      	; 0x542 <setAcc+0x38>
- 53a:	0f ef       	ldi	r16, 0xFF	; 255
- 53c:	1f e0       	ldi	r17, 0x0F	; 15
- 53e:	20 e0       	ldi	r18, 0x00	; 0
- 540:	30 e0       	ldi	r19, 0x00	; 0
- 542:	45 e0       	ldi	r20, 0x05	; 5
- 544:	60 e0       	ldi	r22, 0x00	; 0
- 546:	8c 2f       	mov	r24, r28
- 548:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 54c:	cf 91       	pop	r28
- 54e:	1f 91       	pop	r17
- 550:	0f 91       	pop	r16
- 552:	08 95       	ret
+00000550 <setDec>:
+ 550:	0f 93       	push	r16
+ 552:	1f 93       	push	r17
+ 554:	cf 93       	push	r28
+ 556:	c8 2f       	mov	r28, r24
+ 558:	cb 01       	movw	r24, r22
+ 55a:	ba 01       	movw	r22, r20
+ 55c:	0e 94 c6 04 	call	0x98c	; 0x98c <__floatunsisf>
+ 560:	2c e8       	ldi	r18, 0x8C	; 140
+ 562:	3c eb       	ldi	r19, 0xBC	; 188
+ 564:	4c e0       	ldi	r20, 0x0C	; 12
+ 566:	5e e3       	ldi	r21, 0x3E	; 62
+ 568:	0e 94 6d 05 	call	0xada	; 0xada <__mulsf3>
+ 56c:	0e 94 97 04 	call	0x92e	; 0x92e <__fixunssfsi>
+ 570:	8b 01       	movw	r16, r22
+ 572:	9c 01       	movw	r18, r24
+ 574:	01 15       	cp	r16, r1
+ 576:	80 e1       	ldi	r24, 0x10	; 16
+ 578:	18 07       	cpc	r17, r24
+ 57a:	21 05       	cpc	r18, r1
+ 57c:	31 05       	cpc	r19, r1
+ 57e:	20 f0       	brcs	.+8      	; 0x588 <setDec+0x38>
+ 580:	0f ef       	ldi	r16, 0xFF	; 255
+ 582:	1f e0       	ldi	r17, 0x0F	; 15
+ 584:	20 e0       	ldi	r18, 0x00	; 0
+ 586:	30 e0       	ldi	r19, 0x00	; 0
+ 588:	46 e0       	ldi	r20, 0x06	; 6
+ 58a:	60 e0       	ldi	r22, 0x00	; 0
+ 58c:	8c 2f       	mov	r24, r28
+ 58e:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 592:	cf 91       	pop	r28
+ 594:	1f 91       	pop	r17
+ 596:	0f 91       	pop	r16
+ 598:	08 95       	ret
 
-00000554 <setDec>:
- 554:	0f 93       	push	r16
- 556:	1f 93       	push	r17
- 558:	cf 93       	push	r28
- 55a:	c8 2f       	mov	r28, r24
- 55c:	cb 01       	movw	r24, r22
- 55e:	ba 01       	movw	r22, r20
- 560:	0e 94 c6 04 	call	0x98c	; 0x98c <__floatunsisf>
- 564:	2c e8       	ldi	r18, 0x8C	; 140
- 566:	3c eb       	ldi	r19, 0xBC	; 188
- 568:	4c e0       	ldi	r20, 0x0C	; 12
- 56a:	5e e3       	ldi	r21, 0x3E	; 62
- 56c:	0e 94 6d 05 	call	0xada	; 0xada <__mulsf3>
- 570:	0e 94 97 04 	call	0x92e	; 0x92e <__fixunssfsi>
- 574:	8b 01       	movw	r16, r22
- 576:	9c 01       	movw	r18, r24
- 578:	01 15       	cp	r16, r1
- 57a:	80 e1       	ldi	r24, 0x10	; 16
- 57c:	18 07       	cpc	r17, r24
- 57e:	21 05       	cpc	r18, r1
- 580:	31 05       	cpc	r19, r1
- 582:	20 f0       	brcs	.+8      	; 0x58c <setDec+0x38>
- 584:	0f ef       	ldi	r16, 0xFF	; 255
- 586:	1f e0       	ldi	r17, 0x0F	; 15
- 588:	20 e0       	ldi	r18, 0x00	; 0
- 58a:	30 e0       	ldi	r19, 0x00	; 0
- 58c:	46 e0       	ldi	r20, 0x06	; 6
- 58e:	60 e0       	ldi	r22, 0x00	; 0
- 590:	8c 2f       	mov	r24, r28
- 592:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 596:	cf 91       	pop	r28
- 598:	1f 91       	pop	r17
- 59a:	0f 91       	pop	r16
- 59c:	08 95       	ret
+0000059a <getParam>:
+ 59a:	cf 93       	push	r28
+ 59c:	df 93       	push	r29
+ 59e:	c8 2f       	mov	r28, r24
+ 5a0:	d6 2f       	mov	r29, r22
+ 5a2:	60 62       	ori	r22, 0x20	; 32
+ 5a4:	0e 94 aa 00 	call	0x154	; 0x154 <SPIXferMotors>
+ 5a8:	20 e0       	ldi	r18, 0x00	; 0
+ 5aa:	30 e0       	ldi	r19, 0x00	; 0
+ 5ac:	a9 01       	movw	r20, r18
+ 5ae:	6d 2f       	mov	r22, r29
+ 5b0:	8c 2f       	mov	r24, r28
+ 5b2:	0e 94 7f 01 	call	0x2fe	; 0x2fe <paramHandler>
+ 5b6:	df 91       	pop	r29
+ 5b8:	cf 91       	pop	r28
+ 5ba:	08 95       	ret
 
-0000059e <getParam>:
- 59e:	cf 93       	push	r28
- 5a0:	df 93       	push	r29
- 5a2:	c8 2f       	mov	r28, r24
- 5a4:	d6 2f       	mov	r29, r22
- 5a6:	60 62       	ori	r22, 0x20	; 32
- 5a8:	0e 94 ac 00 	call	0x158	; 0x158 <SPIXferMotors>
- 5ac:	20 e0       	ldi	r18, 0x00	; 0
- 5ae:	30 e0       	ldi	r19, 0x00	; 0
- 5b0:	a9 01       	movw	r20, r18
- 5b2:	6d 2f       	mov	r22, r29
- 5b4:	8c 2f       	mov	r24, r28
- 5b6:	0e 94 81 01 	call	0x302	; 0x302 <paramHandler>
- 5ba:	df 91       	pop	r29
- 5bc:	cf 91       	pop	r28
- 5be:	08 95       	ret
+000005bc <setOscMode>:
+ 5bc:	ff 92       	push	r15
+ 5be:	0f 93       	push	r16
+ 5c0:	1f 93       	push	r17
+ 5c2:	cf 93       	push	r28
+ 5c4:	df 93       	push	r29
+ 5c6:	f8 2e       	mov	r15, r24
+ 5c8:	eb 01       	movw	r28, r22
+ 5ca:	6a e1       	ldi	r22, 0x1A	; 26
+ 5cc:	0e 94 cd 02 	call	0x59a	; 0x59a <getParam>
+ 5d0:	dc 01       	movw	r26, r24
+ 5d2:	cb 01       	movw	r24, r22
+ 5d4:	80 7f       	andi	r24, 0xF0	; 240
+ 5d6:	cf 70       	andi	r28, 0x0F	; 15
+ 5d8:	dd 27       	eor	r29, r29
+ 5da:	8e 01       	movw	r16, r28
+ 5dc:	dd 0f       	add	r29, r29
+ 5de:	22 0b       	sbc	r18, r18
+ 5e0:	33 0b       	sbc	r19, r19
+ 5e2:	08 2b       	or	r16, r24
+ 5e4:	19 2b       	or	r17, r25
+ 5e6:	2a 2b       	or	r18, r26
+ 5e8:	3b 2b       	or	r19, r27
+ 5ea:	4a e1       	ldi	r20, 0x1A	; 26
+ 5ec:	60 e0       	ldi	r22, 0x00	; 0
+ 5ee:	8f 2d       	mov	r24, r15
+ 5f0:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 5f4:	df 91       	pop	r29
+ 5f6:	cf 91       	pop	r28
+ 5f8:	1f 91       	pop	r17
+ 5fa:	0f 91       	pop	r16
+ 5fc:	ff 90       	pop	r15
+ 5fe:	08 95       	ret
 
-000005c0 <setOscMode>:
- 5c0:	ff 92       	push	r15
- 5c2:	0f 93       	push	r16
- 5c4:	1f 93       	push	r17
- 5c6:	cf 93       	push	r28
- 5c8:	df 93       	push	r29
- 5ca:	f8 2e       	mov	r15, r24
- 5cc:	eb 01       	movw	r28, r22
- 5ce:	6a e1       	ldi	r22, 0x1A	; 26
- 5d0:	0e 94 cf 02 	call	0x59e	; 0x59e <getParam>
- 5d4:	dc 01       	movw	r26, r24
- 5d6:	cb 01       	movw	r24, r22
- 5d8:	80 7f       	andi	r24, 0xF0	; 240
- 5da:	cf 70       	andi	r28, 0x0F	; 15
- 5dc:	dd 27       	eor	r29, r29
- 5de:	8e 01       	movw	r16, r28
- 5e0:	dd 0f       	add	r29, r29
- 5e2:	22 0b       	sbc	r18, r18
- 5e4:	33 0b       	sbc	r19, r19
- 5e6:	08 2b       	or	r16, r24
- 5e8:	19 2b       	or	r17, r25
- 5ea:	2a 2b       	or	r18, r26
- 5ec:	3b 2b       	or	r19, r27
- 5ee:	4a e1       	ldi	r20, 0x1A	; 26
- 5f0:	60 e0       	ldi	r22, 0x00	; 0
- 5f2:	8f 2d       	mov	r24, r15
- 5f4:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 5f8:	df 91       	pop	r29
- 5fa:	cf 91       	pop	r28
- 5fc:	1f 91       	pop	r17
- 5fe:	0f 91       	pop	r16
- 600:	ff 90       	pop	r15
- 602:	08 95       	ret
+00000600 <setSwitchMode>:
+ 600:	ff 92       	push	r15
+ 602:	0f 93       	push	r16
+ 604:	1f 93       	push	r17
+ 606:	cf 93       	push	r28
+ 608:	df 93       	push	r29
+ 60a:	f8 2e       	mov	r15, r24
+ 60c:	eb 01       	movw	r28, r22
+ 60e:	6a e1       	ldi	r22, 0x1A	; 26
+ 610:	0e 94 cd 02 	call	0x59a	; 0x59a <getParam>
+ 614:	dc 01       	movw	r26, r24
+ 616:	cb 01       	movw	r24, r22
+ 618:	8f 7e       	andi	r24, 0xEF	; 239
+ 61a:	c0 71       	andi	r28, 0x10	; 16
+ 61c:	dd 27       	eor	r29, r29
+ 61e:	8e 01       	movw	r16, r28
+ 620:	dd 0f       	add	r29, r29
+ 622:	22 0b       	sbc	r18, r18
+ 624:	33 0b       	sbc	r19, r19
+ 626:	08 2b       	or	r16, r24
+ 628:	19 2b       	or	r17, r25
+ 62a:	2a 2b       	or	r18, r26
+ 62c:	3b 2b       	or	r19, r27
+ 62e:	4a e1       	ldi	r20, 0x1A	; 26
+ 630:	60 e0       	ldi	r22, 0x00	; 0
+ 632:	8f 2d       	mov	r24, r15
+ 634:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 638:	df 91       	pop	r29
+ 63a:	cf 91       	pop	r28
+ 63c:	1f 91       	pop	r17
+ 63e:	0f 91       	pop	r16
+ 640:	ff 90       	pop	r15
+ 642:	08 95       	ret
 
-00000604 <setSwitchMode>:
- 604:	ff 92       	push	r15
- 606:	0f 93       	push	r16
- 608:	1f 93       	push	r17
- 60a:	cf 93       	push	r28
- 60c:	df 93       	push	r29
- 60e:	f8 2e       	mov	r15, r24
- 610:	eb 01       	movw	r28, r22
- 612:	6a e1       	ldi	r22, 0x1A	; 26
- 614:	0e 94 cf 02 	call	0x59e	; 0x59e <getParam>
- 618:	dc 01       	movw	r26, r24
- 61a:	cb 01       	movw	r24, r22
- 61c:	8f 7e       	andi	r24, 0xEF	; 239
- 61e:	c0 71       	andi	r28, 0x10	; 16
- 620:	dd 27       	eor	r29, r29
- 622:	8e 01       	movw	r16, r28
- 624:	dd 0f       	add	r29, r29
- 626:	22 0b       	sbc	r18, r18
- 628:	33 0b       	sbc	r19, r19
- 62a:	08 2b       	or	r16, r24
- 62c:	19 2b       	or	r17, r25
- 62e:	2a 2b       	or	r18, r26
- 630:	3b 2b       	or	r19, r27
- 632:	4a e1       	ldi	r20, 0x1A	; 26
- 634:	60 e0       	ldi	r22, 0x00	; 0
- 636:	8f 2d       	mov	r24, r15
- 638:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 63c:	df 91       	pop	r29
- 63e:	cf 91       	pop	r28
- 640:	1f 91       	pop	r17
- 642:	0f 91       	pop	r16
- 644:	ff 90       	pop	r15
- 646:	08 95       	ret
+00000644 <setVoltageComp>:
+ 644:	ff 92       	push	r15
+ 646:	0f 93       	push	r16
+ 648:	1f 93       	push	r17
+ 64a:	cf 93       	push	r28
+ 64c:	df 93       	push	r29
+ 64e:	f8 2e       	mov	r15, r24
+ 650:	eb 01       	movw	r28, r22
+ 652:	6a e1       	ldi	r22, 0x1A	; 26
+ 654:	0e 94 cd 02 	call	0x59a	; 0x59a <getParam>
+ 658:	dc 01       	movw	r26, r24
+ 65a:	cb 01       	movw	r24, r22
+ 65c:	8f 7d       	andi	r24, 0xDF	; 223
+ 65e:	c0 72       	andi	r28, 0x20	; 32
+ 660:	dd 27       	eor	r29, r29
+ 662:	8e 01       	movw	r16, r28
+ 664:	dd 0f       	add	r29, r29
+ 666:	22 0b       	sbc	r18, r18
+ 668:	33 0b       	sbc	r19, r19
+ 66a:	08 2b       	or	r16, r24
+ 66c:	19 2b       	or	r17, r25
+ 66e:	2a 2b       	or	r18, r26
+ 670:	3b 2b       	or	r19, r27
+ 672:	4a e1       	ldi	r20, 0x1A	; 26
+ 674:	60 e0       	ldi	r22, 0x00	; 0
+ 676:	8f 2d       	mov	r24, r15
+ 678:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 67c:	df 91       	pop	r29
+ 67e:	cf 91       	pop	r28
+ 680:	1f 91       	pop	r17
+ 682:	0f 91       	pop	r16
+ 684:	ff 90       	pop	r15
+ 686:	08 95       	ret
 
-00000648 <setVoltageComp>:
- 648:	ff 92       	push	r15
- 64a:	0f 93       	push	r16
- 64c:	1f 93       	push	r17
- 64e:	cf 93       	push	r28
- 650:	df 93       	push	r29
- 652:	f8 2e       	mov	r15, r24
- 654:	eb 01       	movw	r28, r22
- 656:	6a e1       	ldi	r22, 0x1A	; 26
- 658:	0e 94 cf 02 	call	0x59e	; 0x59e <getParam>
- 65c:	dc 01       	movw	r26, r24
- 65e:	cb 01       	movw	r24, r22
- 660:	8f 7d       	andi	r24, 0xDF	; 223
- 662:	c0 72       	andi	r28, 0x20	; 32
- 664:	dd 27       	eor	r29, r29
- 666:	8e 01       	movw	r16, r28
- 668:	dd 0f       	add	r29, r29
- 66a:	22 0b       	sbc	r18, r18
- 66c:	33 0b       	sbc	r19, r19
- 66e:	08 2b       	or	r16, r24
- 670:	19 2b       	or	r17, r25
- 672:	2a 2b       	or	r18, r26
- 674:	3b 2b       	or	r19, r27
- 676:	4a e1       	ldi	r20, 0x1A	; 26
- 678:	60 e0       	ldi	r22, 0x00	; 0
- 67a:	8f 2d       	mov	r24, r15
- 67c:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 680:	df 91       	pop	r29
- 682:	cf 91       	pop	r28
- 684:	1f 91       	pop	r17
- 686:	0f 91       	pop	r16
- 688:	ff 90       	pop	r15
- 68a:	08 95       	ret
+00000688 <setPWMFreq>:
+ 688:	0f 93       	push	r16
+ 68a:	1f 93       	push	r17
+ 68c:	cf 93       	push	r28
+ 68e:	c8 2f       	mov	r28, r24
+ 690:	6a e1       	ldi	r22, 0x1A	; 26
+ 692:	0e 94 cd 02 	call	0x59a	; 0x59a <getParam>
+ 696:	8b 01       	movw	r16, r22
+ 698:	9c 01       	movw	r18, r24
+ 69a:	13 70       	andi	r17, 0x03	; 3
+ 69c:	22 27       	eor	r18, r18
+ 69e:	33 27       	eor	r19, r19
+ 6a0:	4a e1       	ldi	r20, 0x1A	; 26
+ 6a2:	60 e0       	ldi	r22, 0x00	; 0
+ 6a4:	8c 2f       	mov	r24, r28
+ 6a6:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 6aa:	cf 91       	pop	r28
+ 6ac:	1f 91       	pop	r17
+ 6ae:	0f 91       	pop	r16
+ 6b0:	08 95       	ret
 
-0000068c <setPWMFreq>:
- 68c:	0f 93       	push	r16
- 68e:	1f 93       	push	r17
- 690:	cf 93       	push	r28
- 692:	c8 2f       	mov	r28, r24
- 694:	6a e1       	ldi	r22, 0x1A	; 26
- 696:	0e 94 cf 02 	call	0x59e	; 0x59e <getParam>
- 69a:	8b 01       	movw	r16, r22
- 69c:	9c 01       	movw	r18, r24
- 69e:	13 70       	andi	r17, 0x03	; 3
- 6a0:	22 27       	eor	r18, r18
- 6a2:	33 27       	eor	r19, r19
- 6a4:	4a e1       	ldi	r20, 0x1A	; 26
- 6a6:	60 e0       	ldi	r22, 0x00	; 0
- 6a8:	8c 2f       	mov	r24, r28
- 6aa:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 6ae:	cf 91       	pop	r28
- 6b0:	1f 91       	pop	r17
- 6b2:	0f 91       	pop	r16
- 6b4:	08 95       	ret
+000006b2 <setOCShutdown>:
+ 6b2:	0f 93       	push	r16
+ 6b4:	1f 93       	push	r17
+ 6b6:	cf 93       	push	r28
+ 6b8:	df 93       	push	r29
+ 6ba:	d8 2f       	mov	r29, r24
+ 6bc:	c6 2f       	mov	r28, r22
+ 6be:	6a e1       	ldi	r22, 0x1A	; 26
+ 6c0:	0e 94 cd 02 	call	0x59a	; 0x59a <getParam>
+ 6c4:	8b 01       	movw	r16, r22
+ 6c6:	9c 01       	movw	r18, r24
+ 6c8:	0f 77       	andi	r16, 0x7F	; 127
+ 6ca:	c0 78       	andi	r28, 0x80	; 128
+ 6cc:	0c 2b       	or	r16, r28
+ 6ce:	4a e1       	ldi	r20, 0x1A	; 26
+ 6d0:	60 e0       	ldi	r22, 0x00	; 0
+ 6d2:	8d 2f       	mov	r24, r29
+ 6d4:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 6d8:	df 91       	pop	r29
+ 6da:	cf 91       	pop	r28
+ 6dc:	1f 91       	pop	r17
+ 6de:	0f 91       	pop	r16
+ 6e0:	08 95       	ret
 
-000006b6 <setOCShutdown>:
- 6b6:	0f 93       	push	r16
- 6b8:	1f 93       	push	r17
- 6ba:	cf 93       	push	r28
- 6bc:	df 93       	push	r29
- 6be:	d8 2f       	mov	r29, r24
- 6c0:	c6 2f       	mov	r28, r22
- 6c2:	6a e1       	ldi	r22, 0x1A	; 26
- 6c4:	0e 94 cf 02 	call	0x59e	; 0x59e <getParam>
- 6c8:	8b 01       	movw	r16, r22
- 6ca:	9c 01       	movw	r18, r24
- 6cc:	0f 77       	andi	r16, 0x7F	; 127
- 6ce:	c0 78       	andi	r28, 0x80	; 128
- 6d0:	0c 2b       	or	r16, r28
- 6d2:	4a e1       	ldi	r20, 0x1A	; 26
- 6d4:	60 e0       	ldi	r22, 0x00	; 0
- 6d6:	8d 2f       	mov	r24, r29
- 6d8:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 6dc:	df 91       	pop	r29
- 6de:	cf 91       	pop	r28
- 6e0:	1f 91       	pop	r17
- 6e2:	0f 91       	pop	r16
- 6e4:	08 95       	ret
+000006e2 <setSlewRate>:
+ 6e2:	0f 93       	push	r16
+ 6e4:	1f 93       	push	r17
+ 6e6:	cf 93       	push	r28
+ 6e8:	df 93       	push	r29
+ 6ea:	c8 2f       	mov	r28, r24
+ 6ec:	d6 2f       	mov	r29, r22
+ 6ee:	68 e1       	ldi	r22, 0x18	; 24
+ 6f0:	0e 94 cd 02 	call	0x59a	; 0x59a <getParam>
+ 6f4:	8b 01       	movw	r16, r22
+ 6f6:	9c 01       	movw	r18, r24
+ 6f8:	00 27       	eor	r16, r16
+ 6fa:	22 27       	eor	r18, r18
+ 6fc:	33 27       	eor	r19, r19
+ 6fe:	0d 2b       	or	r16, r29
+ 700:	48 e1       	ldi	r20, 0x18	; 24
+ 702:	60 e0       	ldi	r22, 0x00	; 0
+ 704:	8c 2f       	mov	r24, r28
+ 706:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
+ 70a:	df 91       	pop	r29
+ 70c:	cf 91       	pop	r28
+ 70e:	1f 91       	pop	r17
+ 710:	0f 91       	pop	r16
+ 712:	08 95       	ret
 
-000006e6 <setSlewRate>:
- 6e6:	0f 93       	push	r16
- 6e8:	1f 93       	push	r17
- 6ea:	cf 93       	push	r28
- 6ec:	df 93       	push	r29
- 6ee:	c8 2f       	mov	r28, r24
- 6f0:	d6 2f       	mov	r29, r22
- 6f2:	68 e1       	ldi	r22, 0x18	; 24
- 6f4:	0e 94 cf 02 	call	0x59e	; 0x59e <getParam>
- 6f8:	8b 01       	movw	r16, r22
- 6fa:	9c 01       	movw	r18, r24
- 6fc:	00 27       	eor	r16, r16
- 6fe:	22 27       	eor	r18, r18
- 700:	33 27       	eor	r19, r19
- 702:	0d 2b       	or	r16, r29
- 704:	48 e1       	ldi	r20, 0x18	; 24
- 706:	60 e0       	ldi	r22, 0x00	; 0
- 708:	8c 2f       	mov	r24, r28
- 70a:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
- 70e:	df 91       	pop	r29
- 710:	cf 91       	pop	r28
- 712:	1f 91       	pop	r17
- 714:	0f 91       	pop	r16
- 716:	08 95       	ret
-
-00000718 <maxSpdCalc>:
+00000714 <maxSpdCalc>:
 	return retVal;
 }
 
 unsigned long maxSpdCalc (unsigned long stepsParSec)
 {
 	unsigned long temp = ceil(stepsParSec* .065536);
- 718:	0e 94 c6 04 	call	0x98c	; 0x98c <__floatunsisf>
- 71c:	2d eb       	ldi	r18, 0xBD	; 189
- 71e:	37 e3       	ldi	r19, 0x37	; 55
- 720:	46 e8       	ldi	r20, 0x86	; 134
- 722:	5d e3       	ldi	r21, 0x3D	; 61
- 724:	0e 94 6d 05 	call	0xada	; 0xada <__mulsf3>
- 728:	0e 94 80 04 	call	0x900	; 0x900 <ceil>
- 72c:	0e 94 97 04 	call	0x92e	; 0x92e <__fixunssfsi>
- 730:	61 15       	cp	r22, r1
- 732:	24 e0       	ldi	r18, 0x04	; 4
- 734:	72 07       	cpc	r23, r18
- 736:	81 05       	cpc	r24, r1
- 738:	91 05       	cpc	r25, r1
- 73a:	20 f0       	brcs	.+8      	; 0x744 <maxSpdCalc+0x2c>
- 73c:	6f ef       	ldi	r22, 0xFF	; 255
- 73e:	73 e0       	ldi	r23, 0x03	; 3
- 740:	80 e0       	ldi	r24, 0x00	; 0
- 742:	90 e0       	ldi	r25, 0x00	; 0
+ 714:	0e 94 c6 04 	call	0x98c	; 0x98c <__floatunsisf>
+ 718:	2d eb       	ldi	r18, 0xBD	; 189
+ 71a:	37 e3       	ldi	r19, 0x37	; 55
+ 71c:	46 e8       	ldi	r20, 0x86	; 134
+ 71e:	5d e3       	ldi	r21, 0x3D	; 61
+ 720:	0e 94 6d 05 	call	0xada	; 0xada <__mulsf3>
+ 724:	0e 94 80 04 	call	0x900	; 0x900 <ceil>
+ 728:	0e 94 97 04 	call	0x92e	; 0x92e <__fixunssfsi>
+ 72c:	61 15       	cp	r22, r1
+ 72e:	24 e0       	ldi	r18, 0x04	; 4
+ 730:	72 07       	cpc	r23, r18
+ 732:	81 05       	cpc	r24, r1
+ 734:	91 05       	cpc	r25, r1
+ 736:	20 f0       	brcs	.+8      	; 0x740 <maxSpdCalc+0x2c>
+ 738:	6f ef       	ldi	r22, 0xFF	; 255
+ 73a:	73 e0       	ldi	r23, 0x03	; 3
+ 73c:	80 e0       	ldi	r24, 0x00	; 0
+ 73e:	90 e0       	ldi	r25, 0x00	; 0
 	if (temp > 0x000003FF) return 0x000003FF;
 	else return temp;
 }
- 744:	08 95       	ret
+ 740:	08 95       	ret
 
-00000746 <setMaxSpeed>:
+00000742 <setMaxSpeed>:
 	
 	stepModeConfig |= (stepMode &0x07);
 }
 
 void setMaxSpeed(uint8_t motor, unsigned long stepsPerSecond)
 {
- 746:	0f 93       	push	r16
- 748:	1f 93       	push	r17
- 74a:	cf 93       	push	r28
- 74c:	c8 2f       	mov	r28, r24
+ 742:	0f 93       	push	r16
+ 744:	1f 93       	push	r17
+ 746:	cf 93       	push	r28
+ 748:	c8 2f       	mov	r28, r24
 	unsigned long integerSpeed = maxSpdCalc(stepsPerSecond);
- 74e:	cb 01       	movw	r24, r22
- 750:	ba 01       	movw	r22, r20
- 752:	0e 94 8c 03 	call	0x718	; 0x718 <maxSpdCalc>
- 756:	8b 01       	movw	r16, r22
- 758:	9c 01       	movw	r18, r24
+ 74a:	cb 01       	movw	r24, r22
+ 74c:	ba 01       	movw	r22, r20
+ 74e:	0e 94 8a 03 	call	0x714	; 0x714 <maxSpdCalc>
+ 752:	8b 01       	movw	r16, r22
+ 754:	9c 01       	movw	r18, r24
 	
 	setParam(motor, 0, MAX_SPEED, integerSpeed);
- 75a:	47 e0       	ldi	r20, 0x07	; 7
- 75c:	60 e0       	ldi	r22, 0x00	; 0
- 75e:	8c 2f       	mov	r24, r28
- 760:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
+ 756:	47 e0       	ldi	r20, 0x07	; 7
+ 758:	60 e0       	ldi	r22, 0x00	; 0
+ 75a:	8c 2f       	mov	r24, r28
+ 75c:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
 }
- 764:	cf 91       	pop	r28
- 766:	1f 91       	pop	r17
- 768:	0f 91       	pop	r16
- 76a:	08 95       	ret
+ 760:	cf 91       	pop	r28
+ 762:	1f 91       	pop	r17
+ 764:	0f 91       	pop	r16
+ 766:	08 95       	ret
 
-0000076c <motorControl_Init>:
+00000768 <motorControl_Init>:
 	unsigned long mask = 0xFFFFFFFF >> (32-bitLen);
 	return retVal & mask;
 }
 
 void motorControl_Init(void)
 {
- 76c:	ef 92       	push	r14
- 76e:	ff 92       	push	r15
- 770:	0f 93       	push	r16
- 772:	1f 93       	push	r17
- 774:	cf 93       	push	r28
+ 768:	ef 92       	push	r14
+ 76a:	ff 92       	push	r15
+ 76c:	0f 93       	push	r16
+ 76e:	1f 93       	push	r17
+ 770:	cf 93       	push	r28
 	uint8_t i;
 	uint16_t config[3];
 	
 	motorParam.RunKval = 0xA0;
- 776:	e0 e0       	ldi	r30, 0x00	; 0
- 778:	f1 e0       	ldi	r31, 0x01	; 1
- 77a:	80 ea       	ldi	r24, 0xA0	; 160
- 77c:	80 83       	st	Z, r24
+ 772:	e0 e0       	ldi	r30, 0x00	; 0
+ 774:	f1 e0       	ldi	r31, 0x01	; 1
+ 776:	80 ea       	ldi	r24, 0xA0	; 160
+ 778:	80 83       	st	Z, r24
 	motorParam.HoldKval = 0xA0;
- 77e:	81 83       	std	Z+1, r24	; 0x01
+ 77a:	81 83       	std	Z+1, r24	; 0x01
 	motorParam.AccKval = 0xA0;
- 780:	82 83       	std	Z+2, r24	; 0x02
+ 77c:	82 83       	std	Z+2, r24	; 0x02
 	motorParam.DecKval = 0xA0;
- 782:	83 83       	std	Z+3, r24	; 0x03
+ 77e:	83 83       	std	Z+3, r24	; 0x03
 	motorParam.maxSpeed = 200;
- 784:	88 ec       	ldi	r24, 0xC8	; 200
- 786:	90 e0       	ldi	r25, 0x00	; 0
- 788:	a0 e0       	ldi	r26, 0x00	; 0
- 78a:	b0 e0       	ldi	r27, 0x00	; 0
- 78c:	84 83       	std	Z+4, r24	; 0x04
- 78e:	95 83       	std	Z+5, r25	; 0x05
- 790:	a6 83       	std	Z+6, r26	; 0x06
- 792:	b7 83       	std	Z+7, r27	; 0x07
+ 780:	88 ec       	ldi	r24, 0xC8	; 200
+ 782:	90 e0       	ldi	r25, 0x00	; 0
+ 784:	a0 e0       	ldi	r26, 0x00	; 0
+ 786:	b0 e0       	ldi	r27, 0x00	; 0
+ 788:	84 83       	std	Z+4, r24	; 0x04
+ 78a:	95 83       	std	Z+5, r25	; 0x05
+ 78c:	a6 83       	std	Z+6, r26	; 0x06
+ 78e:	b7 83       	std	Z+7, r27	; 0x07
 	motorParam.Acc = 200;
- 794:	80 87       	std	Z+8, r24	; 0x08
- 796:	91 87       	std	Z+9, r25	; 0x09
- 798:	a2 87       	std	Z+10, r26	; 0x0a
- 79a:	b3 87       	std	Z+11, r27	; 0x0b
+ 790:	80 87       	std	Z+8, r24	; 0x08
+ 792:	91 87       	std	Z+9, r25	; 0x09
+ 794:	a2 87       	std	Z+10, r26	; 0x0a
+ 796:	b3 87       	std	Z+11, r27	; 0x0b
 	motorParam.Dec = 100;
- 79c:	84 e6       	ldi	r24, 0x64	; 100
- 79e:	90 e0       	ldi	r25, 0x00	; 0
- 7a0:	a0 e0       	ldi	r26, 0x00	; 0
- 7a2:	b0 e0       	ldi	r27, 0x00	; 0
- 7a4:	84 87       	std	Z+12, r24	; 0x0c
- 7a6:	95 87       	std	Z+13, r25	; 0x0d
- 7a8:	a6 87       	std	Z+14, r26	; 0x0e
- 7aa:	b7 87       	std	Z+15, r27	; 0x0f
+ 798:	84 e6       	ldi	r24, 0x64	; 100
+ 79a:	90 e0       	ldi	r25, 0x00	; 0
+ 79c:	a0 e0       	ldi	r26, 0x00	; 0
+ 79e:	b0 e0       	ldi	r27, 0x00	; 0
+ 7a0:	84 87       	std	Z+12, r24	; 0x0c
+ 7a2:	95 87       	std	Z+13, r25	; 0x0d
+ 7a4:	a6 87       	std	Z+14, r26	; 0x0e
+ 7a6:	b7 87       	std	Z+15, r27	; 0x0f
 	
 	powerSTEP01_GPIO_Init();
- 7ac:	0e 94 75 01 	call	0x2ea	; 0x2ea <powerSTEP01_GPIO_Init>
+ 7a8:	0e 94 73 01 	call	0x2e6	; 0x2e6 <powerSTEP01_GPIO_Init>
 	
 	#ifdef reset
 	releaseReset();
- 7b0:	0e 94 7f 01 	call	0x2fe	; 0x2fe <releaseReset>
+ 7ac:	0e 94 7d 01 	call	0x2fa	; 0x2fa <releaseReset>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 7b4:	8f e9       	ldi	r24, 0x9F	; 159
- 7b6:	9f e0       	ldi	r25, 0x0F	; 15
- 7b8:	01 97       	sbiw	r24, 0x01	; 1
- 7ba:	f1 f7       	brne	.-4      	; 0x7b8 <motorControl_Init+0x4c>
- 7bc:	00 c0       	rjmp	.+0      	; 0x7be <motorControl_Init+0x52>
- 7be:	00 00       	nop
+ 7b0:	8f e9       	ldi	r24, 0x9F	; 159
+ 7b2:	9f e0       	ldi	r25, 0x0F	; 15
+ 7b4:	01 97       	sbiw	r24, 0x01	; 1
+ 7b6:	f1 f7       	brne	.-4      	; 0x7b4 <motorControl_Init+0x4c>
+ 7b8:	00 c0       	rjmp	.+0      	; 0x7ba <motorControl_Init+0x52>
+ 7ba:	00 00       	nop
 	#endif
 	_delay_ms(1);
+	CSM_Low;
+ 7bc:	28 98       	cbi	0x05, 0	; 5
 	SPIXfer(0x00);
- 7c0:	80 e0       	ldi	r24, 0x00	; 0
- 7c2:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
+ 7be:	80 e0       	ldi	r24, 0x00	; 0
+ 7c0:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
 	SPIXfer(0x00);
- 7c6:	80 e0       	ldi	r24, 0x00	; 0
- 7c8:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
+ 7c4:	80 e0       	ldi	r24, 0x00	; 0
+ 7c6:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
 	SPIXfer(0x00);
- 7cc:	80 e0       	ldi	r24, 0x00	; 0
- 7ce:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
+ 7ca:	80 e0       	ldi	r24, 0x00	; 0
+ 7cc:	0e 94 a7 00 	call	0x14e	; 0x14e <SPIXfer>
+	CSM_High;
+ 7d0:	28 9a       	sbi	0x05, 0	; 5
 	//setDeviceParam();
 	
 	for(i=1; i<4; i++)
@@ -1048,7 +1064,7 @@ void motorControl_Init(void)
  7da:	f1 e0       	ldi	r31, 0x01	; 1
  7dc:	ff 2e       	mov	r15, r31
  7de:	f0 2d       	mov	r31, r0
-	SPIXfer(0x00);
+	CSM_High;
 	//setDeviceParam();
 	
 	for(i=1; i<4; i++)
@@ -1056,11 +1072,11 @@ void motorControl_Init(void)
 		config[i-1] = getParam(i, CONFIG);
  7e0:	6a e1       	ldi	r22, 0x1A	; 26
  7e2:	8c 2f       	mov	r24, r28
- 7e4:	0e 94 cf 02 	call	0x59e	; 0x59e <getParam>
+ 7e4:	0e 94 cd 02 	call	0x59a	; 0x59a <getParam>
 		setSlewRate(i, SR_520V_us);
  7e8:	66 ea       	ldi	r22, 0xA6	; 166
  7ea:	8c 2f       	mov	r24, r28
- 7ec:	0e 94 73 03 	call	0x6e6	; 0x6e6 <setSlewRate>
+ 7ec:	0e 94 71 03 	call	0x6e2	; 0x6e2 <setSlewRate>
 	setParam(motor, 0, CONFIG, configVal);
 }
 
@@ -1069,7 +1085,7 @@ void configStepMode(uint8_t motor, uint8_t stepMode)
 	uint8_t stepModeConfig = (uint8_t)getParam(motor, STEP_MODE);
  7f0:	66 e1       	ldi	r22, 0x16	; 22
  7f2:	8c 2f       	mov	r24, r28
- 7f4:	0e 94 cf 02 	call	0x59e	; 0x59e <getParam>
+ 7f4:	0e 94 cd 02 	call	0x59a	; 0x59a <getParam>
 	for(i=1; i<4; i++)
 	{
 		config[i-1] = getParam(i, CONFIG);
@@ -1078,35 +1094,35 @@ void configStepMode(uint8_t motor, uint8_t stepMode)
 		setOCD_TH(i, 8);
  7f8:	68 e0       	ldi	r22, 0x08	; 8
  7fa:	8c 2f       	mov	r24, r28
- 7fc:	0e 94 6b 02 	call	0x4d6	; 0x4d6 <setOCD_TH>
+ 7fc:	0e 94 69 02 	call	0x4d2	; 0x4d2 <setOCD_TH>
 		setOCShutdown(i, OC_SD_ENABLE);
  800:	60 e8       	ldi	r22, 0x80	; 128
  802:	8c 2f       	mov	r24, r28
- 804:	0e 94 5b 03 	call	0x6b6	; 0x6b6 <setOCShutdown>
+ 804:	0e 94 59 03 	call	0x6b2	; 0x6b2 <setOCShutdown>
 		setPWMFreq(i, PWM_DIV_1, PWM_MUL_0_75);
  808:	40 e0       	ldi	r20, 0x00	; 0
  80a:	60 e0       	ldi	r22, 0x00	; 0
  80c:	8c 2f       	mov	r24, r28
- 80e:	0e 94 46 03 	call	0x68c	; 0x68c <setPWMFreq>
+ 80e:	0e 94 44 03 	call	0x688	; 0x688 <setPWMFreq>
 		setVoltageComp(i, VS_COMP_DISABLE);
  812:	60 e0       	ldi	r22, 0x00	; 0
  814:	70 e0       	ldi	r23, 0x00	; 0
  816:	8c 2f       	mov	r24, r28
- 818:	0e 94 24 03 	call	0x648	; 0x648 <setVoltageComp>
+ 818:	0e 94 22 03 	call	0x644	; 0x644 <setVoltageComp>
 		setSwitchMode(i, SW_USER);
  81c:	60 e1       	ldi	r22, 0x10	; 16
  81e:	70 e0       	ldi	r23, 0x00	; 0
  820:	8c 2f       	mov	r24, r28
- 822:	0e 94 02 03 	call	0x604	; 0x604 <setSwitchMode>
+ 822:	0e 94 00 03 	call	0x600	; 0x600 <setSwitchMode>
 		setOscMode(i, CONFIG_INT_16MHZ);
  826:	60 e0       	ldi	r22, 0x00	; 0
  828:	70 e0       	ldi	r23, 0x00	; 0
  82a:	8c 2f       	mov	r24, r28
- 82c:	0e 94 e0 02 	call	0x5c0	; 0x5c0 <setOscMode>
+ 82c:	0e 94 de 02 	call	0x5bc	; 0x5bc <setOscMode>
 		setSTALL_TH(i, 0x00);
  830:	60 e0       	ldi	r22, 0x00	; 0
  832:	8c 2f       	mov	r24, r28
- 834:	0e 94 78 02 	call	0x4f0	; 0x4f0 <setSTALL_TH>
+ 834:	0e 94 76 02 	call	0x4ec	; 0x4ec <setSTALL_TH>
 	
 		setMaxSpeed(i, motorParam.maxSpeed);
  838:	f7 01       	movw	r30, r14
@@ -1115,27 +1131,27 @@ void configStepMode(uint8_t motor, uint8_t stepMode)
  83e:	66 81       	ldd	r22, Z+6	; 0x06
  840:	77 81       	ldd	r23, Z+7	; 0x07
  842:	8c 2f       	mov	r24, r28
- 844:	0e 94 a3 03 	call	0x746	; 0x746 <setMaxSpeed>
+ 844:	0e 94 a1 03 	call	0x742	; 0x742 <setMaxSpeed>
 		setRunKval(i, motorParam.RunKval);
  848:	f7 01       	movw	r30, r14
  84a:	60 81       	ld	r22, Z
  84c:	8c 2f       	mov	r24, r28
- 84e:	0e 94 37 02 	call	0x46e	; 0x46e <setRunKval>
+ 84e:	0e 94 35 02 	call	0x46a	; 0x46a <setRunKval>
 		setHoldKval(i, motorParam.HoldKval);
  852:	f7 01       	movw	r30, r14
  854:	61 81       	ldd	r22, Z+1	; 0x01
  856:	8c 2f       	mov	r24, r28
- 858:	0e 94 44 02 	call	0x488	; 0x488 <setHoldKval>
+ 858:	0e 94 42 02 	call	0x484	; 0x484 <setHoldKval>
 		setAccKval(i, motorParam.AccKval);
  85c:	f7 01       	movw	r30, r14
  85e:	62 81       	ldd	r22, Z+2	; 0x02
  860:	8c 2f       	mov	r24, r28
- 862:	0e 94 51 02 	call	0x4a2	; 0x4a2 <setAccKval>
+ 862:	0e 94 4f 02 	call	0x49e	; 0x49e <setAccKval>
 		setDecKval(i, motorParam.DecKval);
  866:	f7 01       	movw	r30, r14
  868:	63 81       	ldd	r22, Z+3	; 0x03
  86a:	8c 2f       	mov	r24, r28
- 86c:	0e 94 5e 02 	call	0x4bc	; 0x4bc <setDecKval>
+ 86c:	0e 94 5c 02 	call	0x4b8	; 0x4b8 <setDecKval>
 		setAcc(i, motorParam.Acc);
  870:	f7 01       	movw	r30, r14
  872:	40 85       	ldd	r20, Z+8	; 0x08
@@ -1143,7 +1159,7 @@ void configStepMode(uint8_t motor, uint8_t stepMode)
  876:	62 85       	ldd	r22, Z+10	; 0x0a
  878:	73 85       	ldd	r23, Z+11	; 0x0b
  87a:	8c 2f       	mov	r24, r28
- 87c:	0e 94 85 02 	call	0x50a	; 0x50a <setAcc>
+ 87c:	0e 94 83 02 	call	0x506	; 0x506 <setAcc>
 		setDec(i, motorParam.Dec);
  880:	f7 01       	movw	r30, r14
  882:	44 85       	ldd	r20, Z+12	; 0x0c
@@ -1151,7 +1167,7 @@ void configStepMode(uint8_t motor, uint8_t stepMode)
  886:	66 85       	ldd	r22, Z+14	; 0x0e
  888:	77 85       	ldd	r23, Z+15	; 0x0f
  88a:	8c 2f       	mov	r24, r28
- 88c:	0e 94 aa 02 	call	0x554	; 0x554 <setDec>
+ 88c:	0e 94 a8 02 	call	0x550	; 0x550 <setDec>
 	
 		setParam(i, 0, ALARM_EN, 0xAF);
  890:	0f ea       	ldi	r16, 0xAF	; 175
@@ -1161,20 +1177,20 @@ void configStepMode(uint8_t motor, uint8_t stepMode)
  898:	47 e1       	ldi	r20, 0x17	; 23
  89a:	60 e0       	ldi	r22, 0x00	; 0
  89c:	8c 2f       	mov	r24, r28
- 89e:	0e 94 19 02 	call	0x432	; 0x432 <setParam>
+ 89e:	0e 94 17 02 	call	0x42e	; 0x42e <setParam>
 		getStatus(i);
  8a2:	8c 2f       	mov	r24, r28
- 8a4:	0e 94 66 01 	call	0x2cc	; 0x2cc <getStatus>
+ 8a4:	0e 94 64 01 	call	0x2c8	; 0x2c8 <getStatus>
 	SPIXfer(0x00);
 	SPIXfer(0x00);
-	SPIXfer(0x00);
+	CSM_High;
 	//setDeviceParam();
 	
 	for(i=1; i<4; i++)
  8a8:	cf 5f       	subi	r28, 0xFF	; 255
  8aa:	c4 30       	cpi	r28, 0x04	; 4
- 8ac:	09 f0       	breq	.+2      	; 0x8b0 <motorControl_Init+0x144>
- 8ae:	98 cf       	rjmp	.-208    	; 0x7e0 <motorControl_Init+0x74>
+ 8ac:	09 f0       	breq	.+2      	; 0x8b0 <motorControl_Init+0x148>
+ 8ae:	98 cf       	rjmp	.-208    	; 0x7e0 <motorControl_Init+0x78>
 	
 		setParam(i, 0, ALARM_EN, 0xAF);
 		getStatus(i);
@@ -1189,10 +1205,18 @@ void configStepMode(uint8_t motor, uint8_t stepMode)
  8ba:	08 95       	ret
 
 000008bc <PWMinit>:
+
+#include "PWM.h"
+
+void PWMinit(void)
+{
+	DDRB |= (1<<PORTB7);
  8bc:	27 9a       	sbi	0x04, 7	; 4
+	TCCR0A |= (1<<COM0A1)|(1<<WGM00)|(1<<WGM01);
  8be:	84 b5       	in	r24, 0x24	; 36
  8c0:	83 68       	ori	r24, 0x83	; 131
  8c2:	84 bd       	out	0x24, r24	; 36
+	TCCR0B |= (1<<CS00);
  8c4:	85 b5       	in	r24, 0x25	; 37
  8c6:	81 60       	ori	r24, 0x01	; 1
  8c8:	85 bd       	out	0x25, r24	; 37
@@ -1245,9 +1269,18 @@ uint8_t transfer(uint8_t data)
  8ec:	08 95       	ret
 
 000008ee <main>:
+#include "Library/PWM/PWM.h"
+#include "Library/powerSTEP01/powerSTEP01.h"
+
+int main(void)
+{
+	SPI_Init();
  8ee:	0e 94 66 04 	call	0x8cc	; 0x8cc <SPI_Init>
- 8f2:	0e 94 b6 03 	call	0x76c	; 0x76c <motorControl_Init>
+	motorControl_Init();
+ 8f2:	0e 94 b4 03 	call	0x768	; 0x768 <motorControl_Init>
+	PWMinit();
  8f6:	0e 94 5e 04 	call	0x8bc	; 0x8bc <PWMinit>
+	ADCInit();
  8fa:	0e 94 85 00 	call	0x10a	; 0x10a <ADCInit>
  8fe:	ff cf       	rjmp	.-2      	; 0x8fe <main+0x10>
 
