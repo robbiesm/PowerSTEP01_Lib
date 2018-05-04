@@ -34,20 +34,27 @@ uint8_t SPIXferMotors(uint8_t motor, uint8_t data)
 	if (motor < 1) motor = 1;
 	if (motor > 3) motor = 3;
 	CSM_Low;
-		for(j=0; j<3; j++)
+	for(j=0; j<3; j++)
+	{
+		if(motor == (3-j))
 		{
-			if(motor == (3-j))
-			{
-				temp[j] = SPIXfer(data);
-			}
-			else
-			{
-				temp[j] = SPIXfer(0x00);
-			}
+			temp[j] = SPIXfer(data);
 		}
+		else
+		{
+			temp[j] = SPIXfer(0x00);
+		}
+	}		
 	CSM_High;
 	retval = temp[2-(motor-1)];
-	return retval;
+	return retval;	
+	/*
+	uint8_t temp;
+	CSM_Low;
+	temp = transfer(data);
+	CSM_High;
+	return temp;
+	*/
 }
 
 static long SPIXferParam(uint8_t motor, unsigned long data, uint8_t bitLen)
@@ -68,17 +75,18 @@ static long SPIXferParam(uint8_t motor, unsigned long data, uint8_t bitLen)
 	return retVal & mask;
 }
 
-void motorControl_Init(void)
+void motorControl_Init(uint8_t motor)
 {
+	while(busyCheck(motor));
 	uint8_t i;
-	uint16_t config[3];
+	uint16_t config;
 	
-	motorParam.RunKval = 0xA0;
-	motorParam.HoldKval = 0xA0;
-	motorParam.AccKval = 0xA0;
-	motorParam.DecKval = 0xA0;
+	motorParam.RunKval = 0x30;
+	motorParam.HoldKval = 0x30;
+	motorParam.AccKval = 0x30;
+	motorParam.DecKval = 0x30;
 	motorParam.maxSpeed = 200;
-	motorParam.Acc = 200;
+	motorParam.Acc = 100;
 	motorParam.Dec = 100;
 	
 	powerSTEP01_GPIO_Init();
@@ -94,31 +102,27 @@ void motorControl_Init(void)
 	CSM_High;
 	//setDeviceParam();
 	
-	for(i=1; i<4; i++)
-	{
-		config[i-1] = getParam(i, CONFIG);
-		setSlewRate(i, SR_520V_us);
-		configStepMode(i, STEP_SEL_1_128);
-		setOCD_TH(i, 8);
-		setOCShutdown(i, OC_SD_ENABLE);
-		setPWMFreq(i, PWM_DIV_1, PWM_MUL_0_75);
-		setVoltageComp(i, VS_COMP_DISABLE);
-		setSwitchMode(i, SW_USER);
-		setOscMode(i, CONFIG_INT_16MHZ);
-		setSTALL_TH(i, 0x00);
+	config = getParam(motor, CONFIG);
+	setSlewRate(motor, SR_520V_us);
+	configStepMode(motor, STEP_SEL_1_128);
+	setOCD_TH(motor, 0x1F);
+	setOCShutdown(motor, OC_SD_ENABLE);
+	setPWMFreq(motor, PWM_DIV_1, PWM_MUL_0_75);
+	setVoltageComp(motor, VS_COMP_DISABLE);
+	setSwitchMode(motor, SW_USER);
+	setOscMode(motor, CONFIG_INT_16MHZ_OSCOUT_8MHZ);
+	setSTALL_TH(motor, 0x10);
+	setMaxSpeed(motor, motorParam.maxSpeed);
+	setRunKval(motor, motorParam.RunKval);
+	setHoldKval(motor, motorParam.HoldKval);
+	setAccKval(motor, motorParam.AccKval);
+	setDecKval(motor, motorParam.DecKval);
+	setAcc(motor, motorParam.Acc);
+	setDec(motor, motorParam.Dec);
 	
-		setMaxSpeed(i, motorParam.maxSpeed);
-		setRunKval(i, motorParam.RunKval);
-		setHoldKval(i, motorParam.HoldKval);
-		setAccKval(i, motorParam.AccKval);
-		setDecKval(i, motorParam.DecKval);
-		setAcc(i, motorParam.Acc);
-		setDec(i, motorParam.Dec);
-	
-		setParam(i, 0, ALARM_EN, 0xAF);
-		getStatus(i);
-	}
-	
+	setParam(motor, ALARM_EN, 0xAF); //8F
+	getStatus(motor);
+
 }
 
 void motorsResetPos(void)
@@ -149,12 +153,12 @@ void flagHandler(void)
 		}
 		if ((status & 0xC000 ) == 0xC000) //stall
 		{
-			hardStop(i, 0);	
+			hardStop(i);	
 			getStatus(i);
 		}
 		if ((status & 0x2000 ) == 0x2000) //ocd
 		{
-			hardHiZ(i, 0);
+			hardHiZ(i);
 		}
 		if ((status & 0x0800 ) == 0x0800) //warming
 		{
@@ -165,7 +169,7 @@ void flagHandler(void)
 		}
 		if ((status & 0x0800 ) == 0x1000) //th bridge sd
 		{
-			hardHiZ(i, 0);
+			hardHiZ(i);
 			setRunKval(i, 0);		//Kvals to 0 so chip can not dissipate energy and generate more heat
 			setAccKval(i, 0);
 			setDecKval(i, 0);
@@ -175,7 +179,7 @@ void flagHandler(void)
 		if ((status & 0x0800 ) == 0x1800) //th device sd
 		{
 			//seriuously though, how do you even read this if the device shuts down...
-			PORTE &= ~(1<<reset);	//	|	|!
+			//PORTE &= ~(1<<reset);	//	|	|!
 								//	||	|_
 		}
 		if ((status & 0xFA80 ) == 0xE280)	//normal opperation
@@ -202,7 +206,7 @@ void setOscMode(uint8_t motor, int oscillatorMode)
 	configVal &= ~(0x000F);
 	//Now, OR in the masked incoming value.
 	configVal |= (0x000F&oscillatorMode);
-	setParam(motor, 0, CONFIG, configVal);
+	setParam(motor, CONFIG, configVal);
 }
 
 // The switch input can either hard-stop the driver _or_ activate an interrupt.
@@ -214,7 +218,7 @@ void setSwitchMode(uint8_t motor, int switchMode)
 	configVal &= ~(0x0010);
 	//Now, OR in the masked incoming value.
 	configVal |= (0x0010 & switchMode);
-	setParam(motor, 0, CONFIG, configVal);
+	setParam(motor, CONFIG, configVal);
 }
 
 void setVoltageComp(uint8_t motor, int vsCompMode)
@@ -224,7 +228,7 @@ void setVoltageComp(uint8_t motor, int vsCompMode)
 	configVal &= ~(0x0020);
 	//Now, OR in the masked incoming value.
 	configVal |= (0x0020&vsCompMode);
-	setParam(motor, 0, CONFIG, configVal);
+	setParam(motor, CONFIG, configVal);
 }
 
 void setPWMFreq(uint8_t motor, uint8_t divisor, uint8_t multiplier)
@@ -234,7 +238,7 @@ void setPWMFreq(uint8_t motor, uint8_t divisor, uint8_t multiplier)
 	configVal &= ~(F_PWM_DIV);
 	configVal &= ~(F_PWM_MUL);
 	configVal |= ((F_PWM_DIV & divisor)|(F_PWM_MUL & multiplier));
-	setParam(motor, 0, CONFIG, configVal);	
+	setParam(motor, CONFIG, configVal);	
 }
 
 void setOCShutdown(uint8_t motor, uint8_t OCShutdown)
@@ -243,7 +247,7 @@ void setOCShutdown(uint8_t motor, uint8_t OCShutdown)
 	
 	configVal &= ~(0x0080);
 	configVal |= (0x0080 & OCShutdown);
-	setParam(motor, 0, CONFIG, configVal);
+	setParam(motor, CONFIG, configVal);
 }
 
 void configStepMode(uint8_t motor, uint8_t stepMode)
@@ -252,13 +256,14 @@ void configStepMode(uint8_t motor, uint8_t stepMode)
 	stepModeConfig &= 0xF8;
 	
 	stepModeConfig |= (stepMode &0x07);
+	setParam(motor, STEP_MODE, stepModeConfig);
 }
 
 void setMaxSpeed(uint8_t motor, unsigned long stepsPerSecond)
 {
 	unsigned long integerSpeed = maxSpdCalc(stepsPerSecond);
 	
-	setParam(motor, 0, MAX_SPEED, integerSpeed);
+	setParam(motor, MAX_SPEED, integerSpeed);
 }
 
 void setSlewRate(uint8_t motor, uint8_t slewRate)
@@ -268,13 +273,13 @@ void setSlewRate(uint8_t motor, uint8_t slewRate)
 	configVal &= (0xFF00);
 	
 	configVal |= (0x00FF&slewRate);
-	setParam(motor, 0, GATECFG1, configVal);
+	setParam(motor, GATECFG1, configVal);
 }
 
 
 void setRunKval(uint8_t motor, uint8_t kval)
 {
-	setParam(motor, 0, KVAL_RUN, kval);
+	setParam(motor, KVAL_RUN, kval);
 }
 
 uint8_t getRunKval(uint8_t motor)
@@ -284,7 +289,7 @@ uint8_t getRunKval(uint8_t motor)
 
 void setHoldKval(uint8_t motor, uint8_t kval)
 {
-	setParam(motor, 0, KVAL_HOLD, kval);
+	setParam(motor, KVAL_HOLD, kval);
 }
 
 uint8_t getHoldKval(uint8_t motor)
@@ -294,7 +299,7 @@ uint8_t getHoldKval(uint8_t motor)
 
 void setAccKval(uint8_t motor, uint8_t kval)
 {
-	setParam(motor, 0, KVAL_ACC, kval);
+	setParam(motor, KVAL_ACC, kval);
 }
 
 uint8_t getAccKval(uint8_t motor)
@@ -304,7 +309,7 @@ uint8_t getAccKval(uint8_t motor)
 
 void setDecKval(uint8_t motor, uint8_t kval)
 {
-	setParam(motor, 0, KVAL_DEC, kval);
+	setParam(motor, KVAL_DEC, kval);
 }
 
 uint8_t getDecKval(uint8_t motor)
@@ -314,7 +319,7 @@ uint8_t getDecKval(uint8_t motor)
 
 void setOCD_TH(uint8_t motor, uint8_t OCD)
 {
-	setParam(motor, 0, OCD_TH, OCD);
+	setParam(motor, OCD_TH, OCD);
 }
 
 uint8_t getOCD_TH(uint8_t motor)
@@ -329,54 +334,39 @@ void setDeviceParam(uint8_t motor)
 
 void setSTALL_TH(uint8_t motor, uint8_t STALL)
 {
-	setParam(motor, 0, STALL_TH, STALL);
+	setParam(motor, STALL_TH, STALL);
 }
 
 void setAcc(uint8_t motor, unsigned long stepsPerSecondPerSecond)
 {
 	unsigned long integerAcc = accCalc(stepsPerSecondPerSecond);
-	setParam(motor, 0, ACC, integerAcc);
+	setParam(motor, ACC, integerAcc);
 }
 
 void setDec(uint8_t motor, unsigned long stepsPerSecondPerSecond)
 {
 	unsigned long integerDec = decCalc(stepsPerSecondPerSecond);
-	setParam(motor, 0, DECEL, integerDec);
+	setParam(motor, DECEL, integerDec);
 }
 
-uint8_t getStatus(uint8_t motor)
+uint16_t getStatus(uint8_t motor)
 {
-	uint8_t temp;
-	uint8_t* tempPointer = (uint8_t*)&temp;
+	uint16_t temp;
 	SPIXferMotors(motor, GET_STATUS);
-	tempPointer[1] = SPIXferMotors(motor, 0x00);
-	tempPointer[0] = SPIXferMotors(motor, 0x00);
+	temp = SPIXferMotors(motor, 0x00);
+	temp = temp << 8;
+	temp |= SPIXferMotors(motor, 0x00);
 	return temp;
 }
 
 
-void setParam(uint8_t motor, uint8_t deviceId, uint8_t param, uint32_t data)
+void setParam(uint8_t motor, uint8_t param, uint32_t data)
 {
 	param |= SET_PARAM;
 	
 	SPIXferMotors(motor, param);
 	paramHandler(motor, param, data);
 	
-// 	if (numberOfDevices > deviceId)
-// 	{
-// 		uint8_t loop;
-// 		uint8_t maxArgumentNbBytes = 0;
-// 		uint8_t spiIndex = numberOfDevices - deviceId -1;
-// 	}
-// 	
-// 	do 
-// 	{
-// 		
-// 	} while ();
-// 	switch (param)
-// 	{
-// 		
-// 	}
 }
 
 long getParam(uint8_t motor, uint8_t param)
@@ -397,14 +387,14 @@ void powerSTEP01_GPIO_Init(void)
 #endif
 
 	#ifdef reset
-		DDRE |= (1<<DD_reset);
-		PORTE &= ~(1<<reset);
+		DDR_reset |= (1<<DD_reset);
+		PORT_reset &= ~(1<<reset);
 	#endif
 }
 
 void releaseReset(void)
 {
-	PORTE |= (1<<reset);
+	PORT_reset |= (1<<reset);
 }
 
 long paramHandler(uint8_t motor, uint8_t param, uint32_t value)
@@ -622,7 +612,7 @@ int busyCheck(uint8_t motor)
 	}                     	
 }
 
-void run(uint8_t motor, uint8_t deviceId, uint8_t dir, unsigned long stepsPerSec)
+void run(uint8_t motor, uint8_t dir, unsigned long stepsPerSec)
 {	
 	while(busyCheck(motor));
 	SPIXferMotors(motor, (RUN | (0x01 & dir)));
@@ -637,7 +627,7 @@ void run(uint8_t motor, uint8_t deviceId, uint8_t dir, unsigned long stepsPerSec
 	}
 }
 
-void move(uint8_t motor, uint8_t deviceId, uint8_t dir, unsigned long numSteps)
+void move(uint8_t motor, uint8_t dir, unsigned long numSteps)
 {	
 	while(busyCheck(motor));
 	SPIXferMotors(motor, (MOVE | (0x01 & dir)));
@@ -651,23 +641,23 @@ void move(uint8_t motor, uint8_t deviceId, uint8_t dir, unsigned long numSteps)
 	}
 }
 
-void softStop(uint8_t motor, uint8_t deviceId)
+void softStop(uint8_t motor)
 {
 	SPIXferMotors(motor, SOFT_STOP);
 	while(busyCheck(motor));
 }
 
-void hardStop(uint8_t motor, uint8_t deviceId)
+void hardStop(uint8_t motor)
 {	
 	SPIXferMotors(motor, HARD_STOP);
 }
 
-void softHiZ(uint8_t motor, uint8_t deviceId)
+void softHiZ(uint8_t motor)
 {
 	SPIXferMotors(motor, SOFT_HIZ);
 }
 
-void hardHiZ(uint8_t motor, uint8_t deviceId)
+void hardHiZ(uint8_t motor)
 {
 	SPIXferMotors(motor, HARD_HIZ);
 }

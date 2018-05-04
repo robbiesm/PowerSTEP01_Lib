@@ -202,5 +202,4 @@
 #define HARD_HIZ             0xA8
 #define GET_STATUS           0xD0
 
-
 #endif /* POWERSTEP01_CONSTANTS_H_ */

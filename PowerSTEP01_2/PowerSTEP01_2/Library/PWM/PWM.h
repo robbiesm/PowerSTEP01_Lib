@@ -15,7 +15,7 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 
 
 #define PWM_DutyCycle OCR0A //0 - 255

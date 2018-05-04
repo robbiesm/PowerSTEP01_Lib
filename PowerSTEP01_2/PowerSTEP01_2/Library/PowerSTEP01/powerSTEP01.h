@@ -17,19 +17,23 @@
 #include "../SPI/SPI.h"
 #include "powerSTEP01_Constants.h"
 #include <util/delay.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 
 
 
 #if defined(__AVR_ATmega328P__)
 #define DD_reset	DDB0
-#define reset		PORTE6
+#define DDR_reset	DDRB
+#define PORT_reset	PORTB
+#define reset		PORTB0
 #define CSMotor		CS0
 #define BUSY_PIN	PIND5
 #define	CSM_High	(PORTB |= (1<<CSMotor))
 #define	CSM_Low		(PORTB &= ~(1<<CSMotor))
 #elif defined(__AVR_ATmega32U4__)
 #define DD_reset	DDE6
+#define DDR_reset	DDRE
+#define PORT_reset	PORTE
 #define reset		PORTE6
 #define CSMotor		CS0
 #define BUSY_PIN	PIND5
@@ -39,9 +43,9 @@
 
 uint8_t SPIXfer(uint8_t data);
 uint8_t SPIXferMotors(uint8_t motor, uint8_t data);
-uint8_t getStatus(uint8_t motor);
+uint16_t getStatus(uint8_t motor);
 
-void motorControl_Init(void);
+void motorControl_Init(uint8_t motor);
 void powerSTEP01_GPIO_Init(void);
 void releaseReset(void);
 void flagHandler(void);
@@ -71,7 +75,7 @@ uint8_t getDecKval(uint8_t motor);
 uint8_t getOCD_TH(uint8_t motor);
 
 
-void setParam(uint8_t motor, uint8_t deviceId, uint8_t param, uint32_t data);
+void setParam(uint8_t motor, uint8_t param, uint32_t data);
 long getParam(uint8_t motor, uint8_t param);
 long paramHandler(uint8_t motor, uint8_t param, uint32_t value);
 
@@ -81,12 +85,12 @@ unsigned long accCalc(unsigned long stepsPerSecPerSec);
 unsigned long decCalc(unsigned long stepsPerSecPerSec);
 int busyCheck(uint8_t motor);
 
-void run(uint8_t motor, uint8_t deviceId, uint8_t dir, unsigned long stepsPerSec);
-void move(uint8_t motor, uint8_t deviceId, uint8_t dir, unsigned long numSteps);
-void softStop(uint8_t motor, uint8_t deviceId);
-void hardStop(uint8_t motor, uint8_t deviceId);
-void softHiZ(uint8_t motor, uint8_t deviceId);
-void hardHiZ(uint8_t motor, uint8_t deviceId);
+void run(uint8_t motor, uint8_t dir, unsigned long stepsPerSec);
+void move(uint8_t motor, uint8_t dir, unsigned long numSteps);
+void softStop(uint8_t motor);
+void hardStop(uint8_t motor);
+void softHiZ(uint8_t motor);
+void hardHiZ(uint8_t motor);
 void motorsResetPos(void);
 
 /************************************************************************/

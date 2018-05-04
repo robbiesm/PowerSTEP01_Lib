@@ -15,8 +15,10 @@ void ADCInit(void)
 	ADMUX &= ~(1 << MUX1); // set to pin 0 of port F
 	ADMUX &= ~(1 << MUX2); // set to pin 0 of port F
 	ADMUX &= ~(1 << MUX3); // set to pin 0 of port F
-	ADMUX &= ~(1 << MUX4); // set to pin 0 of port F
-	ADCSRB &= ~(1 << MUX5); // set to pin 0 of port F
+	#if defined(__AVR_ATmega32U4__)
+		ADMUX &= ~(1 << MUX4); // set to pin 0 of port F
+		ADCSRB &= ~(1 << MUX5); // set to pin 0 of port F
+	#endif
 	ADCSRA |= (1 << ADEN);  // Enable ADC
 }
 

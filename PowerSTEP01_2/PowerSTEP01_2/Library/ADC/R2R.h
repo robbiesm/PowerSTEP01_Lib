@@ -15,7 +15,7 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 
 #define SWR GPIOR0		//switch register
 #define SW1 GPIOR00
